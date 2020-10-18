@@ -6,16 +6,24 @@ namespace BikeShop_Core.Entities
 {
     public class Language
     {
+        public readonly int LANGUAGE_LONG_MAX_LENGTH = 100;
+        public readonly int LANGUAGE_SHORT_MAX_LENGTH = 3;
+        private string _languageLong;
+        private string _languageShort;
+
         public byte LanguageId { get; set; }
 
-        public string LanguageLong { get; set; }
-        public string LanguageShort { get; set; }
+        public string LanguageLong { get => _languageLong; set => _languageLong = value; }
+        public string LanguageShort { get => _languageShort; set => _languageShort = value; }
     }
     public class ProductNameTranslation
     {
+        public readonly int TEXT_MAX_LENGTH = 1000;
+        private  string _text;
+
         public int TranslationId { get; set; }
 
-        public string Text { get; set; }
+        public string Text { get => _text; set => _text = value; }
 
         public byte LanguageId { get; set; }
         public virtual Language Language { get; set; }
@@ -25,6 +33,8 @@ namespace BikeShop_Core.Entities
     }
     public class ProductDescriptionTranslation
     {
+        public readonly int TEXT_MAX_LENGTH = 1000;
+
         public int TranslationId { get; set; }
 
         public string Text { get; set; }
@@ -45,7 +55,6 @@ namespace BikeShop_Core.Entities
         public decimal PricePLN { get; set; }
         public decimal PriceUSD { get; set; }
         public decimal PriceEUR { get; set; }
-
     }
     public class Shop
     {

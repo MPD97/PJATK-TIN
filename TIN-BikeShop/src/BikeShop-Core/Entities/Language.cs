@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace BikeShop_Core.Entities
 {
     public class Language
     {
-        public readonly int LANGUAGE_LONG_MAX_LENGTH = 100;
-        public readonly int LANGUAGE_SHORT_MAX_LENGTH = 3;
+        public static readonly int LANGUAGE_LONG_MAX_LENGTH = 100;
+        public static readonly int LANGUAGE_SHORT_MAX_LENGTH = 3;
         private string _languageLong;
         private string _languageShort;
 
@@ -40,5 +42,7 @@ namespace BikeShop_Core.Entities
                 }
             }
         }
+        public virtual ICollection<ProductDescriptionTranslation> ProductDescriptions { get; set; }
+        public virtual ICollection<ProductNameTranslation> ProductNames { get; set; }
     }
 }

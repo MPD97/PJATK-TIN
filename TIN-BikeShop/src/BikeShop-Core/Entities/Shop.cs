@@ -6,8 +6,8 @@ namespace BikeShop_Core.Entities
 {
     public class Shop
     {
-        public readonly int NAME_MAX_LENGTH = 150;
-        public readonly int PHOTO_PATH_MAX_LENGTH = 260;
+        public static readonly int NAME_MAX_LENGTH = 150;
+        public static readonly int PHOTO_PATH_MAX_LENGTH = 260;
 
         private string _name;
         private string _photoPath;

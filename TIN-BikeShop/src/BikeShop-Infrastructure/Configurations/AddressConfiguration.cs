@@ -14,11 +14,6 @@ namespace BikeShop_Infrastructure.Configurations
             builder.HasKey(a => a.AddressId)
                 .HasName("ID");
 
-            //builder.Ignore(CITY_MAX_LENGTH);
-            //builder.Ignore(STREET_MAX_LENGTH);
-            //builder.Ignore(STREET_NUMBER_MAX_LENGTH);
-            //builder.Ignore(ZIP_CODE_MAX_LENGTH);
-
             builder.Property(a => a.City)
                 .HasMaxLength(Address.CITY_MAX_LENGTH)
                 .IsRequired();

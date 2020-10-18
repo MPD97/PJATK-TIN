@@ -5,7 +5,7 @@ namespace BikeShop_Core.Entities
 {
     public class ProductNameTranslation
     {
-        public readonly int TEXT_MAX_LENGTH = 1000;
+        public static readonly int TEXT_MAX_LENGTH = 1000;
         private string _text;
 
         public string Text

@@ -25,6 +25,9 @@ namespace BikeShop_Api
 
         public void ConfigureServices(IServiceCollection services )
         {
+            if (_environment.IsDevelopment())
+            {
+            }
             services.AddControllers();
         }
 

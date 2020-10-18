@@ -17,7 +17,7 @@ namespace BikeShop_Infrastructure.Contexts
         public DbSet<Shop> Shops { get; set; }
         public DbSet<Storage> Storages { get; set; }
 
-        public BikeShopContext(DbContextOptions options) : base(options)
+        public BikeShopContext(DbContextOptions<BikeShopContext> options) : base(options)
         {
         }
 
@@ -29,7 +29,7 @@ namespace BikeShop_Infrastructure.Contexts
         {
             base.OnModelCreating(builder);
 
-
+            builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }
 

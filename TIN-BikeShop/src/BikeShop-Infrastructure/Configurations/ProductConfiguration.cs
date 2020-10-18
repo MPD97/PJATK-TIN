@@ -8,8 +8,7 @@ namespace BikeShop_Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasKey(a => a.ProductId)
-                .HasName("ID");
+            builder.HasKey(a => a.ProductId);
 
             builder.Property(a => a.PricePLN)
                 .HasColumnType("decimal(10,2)");

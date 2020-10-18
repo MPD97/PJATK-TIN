@@ -8,8 +8,7 @@ namespace BikeShop_Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Shop> builder)
         {
-            builder.HasKey(a => a.ShopId)
-                .HasName("ID");
+            builder.HasKey(a => a.ShopId);
 
             builder.Property(a => a.Name)
                 .HasMaxLength(Shop.NAME_MAX_LENGTH)

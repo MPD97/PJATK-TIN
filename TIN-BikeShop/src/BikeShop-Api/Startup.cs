@@ -29,21 +29,10 @@ namespace BikeShop_Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            if (_environment.IsDevelopment())
+            services.AddDbContext<BikeShopContext>(options =>
             {
-                services.AddDbContext<BikeShopContext>(options =>
-                {
-                    options.UseInMemoryDatabase(databaseName: "BikeShop");
-                });
-            }
-            else if (_environment.IsProduction())
-            {
-                services.AddDbContext<BikeShopContext>(options =>
-                {
-                    options.UseSqlServer(_configuration.GetConnectionString("default"));
-                });
-            }
-            else { throw new NotImplementedException(); }
+                options.UseSqlServer(_configuration.GetConnectionString("default"));
+            });
 
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<BikeShopContext>()

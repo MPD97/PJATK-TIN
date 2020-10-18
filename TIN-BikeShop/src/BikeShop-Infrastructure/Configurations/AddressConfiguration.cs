@@ -11,8 +11,7 @@ namespace BikeShop_Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.HasKey(a => a.AddressId)
-                .HasName("ID");
+            builder.HasKey(a => a.AddressId);
 
             builder.Property(a => a.City)
                 .HasMaxLength(Address.CITY_MAX_LENGTH)

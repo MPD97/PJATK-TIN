@@ -14,14 +14,16 @@ namespace BikeShop_Api
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration)
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _environment;
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
-            Configuration = configuration;
+            _configuration = configuration ?? throw new NullReferenceException("IConfiguration is null.");
+            _environment = environment ?? throw new NullReferenceException("IWebHostEnvironment is null.");
         }
 
 
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services )
         {
             services.AddControllers();
         }

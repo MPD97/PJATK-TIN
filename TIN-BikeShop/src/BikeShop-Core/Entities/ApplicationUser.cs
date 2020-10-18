@@ -12,10 +12,10 @@ namespace BikeShop_Core.Entities
     {
 
     }
-    public class AppRole : IdentityRole<int>
+    public class ApplicationRole : IdentityRole<int>
     {
-        public AppRole() { }
-        public AppRole(string name)
+        public ApplicationRole() { }
+        public ApplicationRole(string name)
         {
             Name = name;
         }

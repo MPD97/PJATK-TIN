@@ -14,7 +14,9 @@ namespace BikeShop_Core.Entities
 
         public byte LanguageId { get; set; }
 
-        public string LanguageLong { get => _languageLong; set
+        public string LanguageLong
+        {
+            get => _languageLong; set
             {
                 if (value.Length > LANGUAGE_LONG_MAX_LENGTH)
                 {
@@ -26,7 +28,9 @@ namespace BikeShop_Core.Entities
                 }
             }
         }
-        public string LanguageShort { get => _languageShort; set
+        public string LanguageShort
+        {
+            get => _languageShort; set
             {
                 if (value.Length > LANGUAGE_SHORT_MAX_LENGTH)
                 {
@@ -42,11 +46,13 @@ namespace BikeShop_Core.Entities
     public class ProductNameTranslation
     {
         public readonly int TEXT_MAX_LENGTH = 1000;
-        private  string _text;
+        private string _text;
 
         public int TranslationId { get; set; }
 
-        public string Text { get => _text; set
+        public string Text
+        {
+            get => _text; set
             {
                 if (value.Length > TEXT_MAX_LENGTH)
                 {
@@ -107,7 +113,80 @@ namespace BikeShop_Core.Entities
     }
     public class Shop
     {
-        public int ShopId { get; set; }
-        public int MyProperty { get; set; }
+        public readonly int NAME_MAX_LENGTH = 150;
+        public readonly int PHOTO_PATH_MAX_LENGTH = 260;
+
+        private string _name;
+        private string _photoPath;
+
+        public byte ShopId { get; set; }
+        public string Name
+        {
+            get => _name; set
+            {
+                if (value.Length > NAME_MAX_LENGTH)
+                {
+                    throw new ArgumentOutOfRangeException($"Parameter: {MethodBase.GetCurrentMethod().Name} has maximum length of: {NAME_MAX_LENGTH} characters.");
+                }
+                else
+                {
+                    _name = value;
+                }
+            }
+        }
+        public string PhotoPath
+        {
+            get => _photoPath; set
+            {
+                if (value.Length > PHOTO_PATH_MAX_LENGTH)
+                {
+                    throw new ArgumentOutOfRangeException($"Parameter: {MethodBase.GetCurrentMethod().Name} has maximum length of: {PHOTO_PATH_MAX_LENGTH} characters.");
+                }
+                else
+                {
+                    _photoPath = value;
+                }
+            }
+        }
+
+        public int AddressId { get; set; }
+        public Address Address { get; set; }
+    }
+    public class Address
+    {
+        public int AddressId { get; set; }
+
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string StreetNumber { get; set; }
+        public string ZipCode { get; set; }
+
+        public virtual ICollection<Shop> ShopAddresses { get; set; }
+    }
+    public class Storage
+    {
+        public readonly int AMOUNT_MINIMUM_VALUE = 0;
+        private int _amount;
+
+        public int StorageId { get; set; }
+        public int Amount
+        {
+            get => _amount; set
+            {
+                if (value < AMOUNT_MINIMUM_VALUE || value > int.MaxValue)
+                {
+                    throw new ArgumentOutOfRangeException($"Parameter: {MethodBase.GetCurrentMethod().Name} cannot be lower than {AMOUNT_MINIMUM_VALUE} and bigger than {int.MaxValue}.");
+                }
+                else
+                {
+                    _amount = value;
+                }
+            }
+        }
+        public int ProductId { get; set; }
+        public virtual Product Product { get; set; }
+
+        public byte ShopId { get; set; }
+        public virtual Shop Shop { get; set; }
     }
 }

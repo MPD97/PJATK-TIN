@@ -8,8 +8,6 @@ namespace BikeShop_Core.Entities
         public readonly int TEXT_MAX_LENGTH = 1000;
         private string _text;
 
-        public int TranslationId { get; set; }
-
         public string Text
         {
             get => _text; set

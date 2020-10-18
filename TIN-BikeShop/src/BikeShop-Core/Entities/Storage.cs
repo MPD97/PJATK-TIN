@@ -8,7 +8,6 @@ namespace BikeShop_Core.Entities
         public readonly int AMOUNT_MINIMUM_VALUE = 0;
         private int _amount;
 
-        public int StorageId { get; set; }
         public int Amount
         {
             get => _amount; set

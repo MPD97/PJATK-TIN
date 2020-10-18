@@ -30,7 +30,6 @@ namespace BikeShop_Infrastructure.Contexts
             base.OnModelCreating(builder);
 
 
-
         }
     }
 

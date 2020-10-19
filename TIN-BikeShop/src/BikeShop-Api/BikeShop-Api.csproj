@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BikeShop-Core\BikeShop-Core.csproj" />
     <ProjectReference Include="..\BikeShop-Infrastructure\BikeShop-Infrastructure.csproj" />
   </ItemGroup>
 

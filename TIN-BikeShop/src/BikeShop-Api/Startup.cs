@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BikeShop_Core.Entities;
+using BikeShop_Infrastructure.Configurations.Seed;
 using BikeShop_Infrastructure.Contexts;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -44,7 +44,7 @@ namespace BikeShop_Api
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, BikeShopContext context)
+        public void Configure(IApplicationBuilder app, BikeShopContext context, UserManager<ApplicationUser> userManager)
         {
             if (_environment.IsDevelopment())
             {
@@ -54,6 +54,8 @@ namespace BikeShop_Api
             {
                 context.Database.Migrate();
             }
+
+            ApplicationUsersInitializer.SeedUsers(userManager);
 
             app.UseRouting();
 

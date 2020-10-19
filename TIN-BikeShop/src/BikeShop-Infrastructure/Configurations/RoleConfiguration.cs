@@ -11,7 +11,9 @@ namespace BikeShop_Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<ApplicationRole> builder)
         {
-           
+            builder.HasData(new ApplicationRole { Id = 1, Name = "User", NormalizedName = "User".ToUpper() });
+            builder.HasData(new ApplicationRole { Id = 2, Name = "Admin", NormalizedName = "Admin".ToUpper() });
+            builder.HasData(new ApplicationRole { Id = 3, Name = "Moderator", NormalizedName = "Moderator".ToUpper() });
         }
     }
 }

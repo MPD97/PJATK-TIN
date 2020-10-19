@@ -8,6 +8,6 @@ namespace BikeShop_Infrastructure.Authorization
     {
         public const string Issuer = "BikeShop";
         public const string Audience = "ApplicationUser";
-        public const string Key = "12345654323456";
+        public const string Key = "102948291571293940291253";
     }
 }

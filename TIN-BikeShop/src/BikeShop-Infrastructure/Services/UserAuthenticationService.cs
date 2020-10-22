@@ -1,8 +1,11 @@
 ﻿using BikeShop_Core.Entities;
 using BikeShop_Infrastructure.Contexts;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace BikeShop_Infrastructure.Services
@@ -20,12 +23,25 @@ namespace BikeShop_Infrastructure.Services
             _settings = settings;
         }
 
-        public string GenerateJwtToken(ApplicationUser user)
+        public string GenerateJwtToken(ApplicationUser user, string[] roles)
         {
-            throw new NotImplementedException(); 
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_settings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                    new Claim(ClaimTypes.Role, string.Join(", ", roles))
+                }),
+                Expires = DateTime.UtcNow.AddMinutes(_settings.ExpireAfterMinutes),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
         }
-
-
-
     }
 }

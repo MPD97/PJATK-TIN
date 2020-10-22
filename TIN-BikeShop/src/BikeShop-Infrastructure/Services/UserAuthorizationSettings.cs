@@ -7,6 +7,7 @@ namespace BikeShop_Infrastructure.Services
 {
     public class UserAuthorizationSettings
     {
+        private const int SECRET_LENGTH = 26;
         private long _expireAfterMinutes;
         private string _secret;
 
@@ -26,9 +27,9 @@ namespace BikeShop_Infrastructure.Services
         }
         public string Secret { get => _secret; set
             {
-                if (value.Length != 13)
+                if (value.Length != SECRET_LENGTH)
                 {
-                    throw new ArgumentOutOfRangeException($"Parameter: {MethodBase.GetCurrentMethod().Name} must be 13 characters long.");
+                    throw new ArgumentOutOfRangeException($"Parameter: {MethodBase.GetCurrentMethod().Name} must be {SECRET_LENGTH} characters long.");
                 }
                 else
                 {

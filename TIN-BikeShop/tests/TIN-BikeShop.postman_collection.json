@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "15fa5023-a7bf-4289-93c8-e40d7025dde5",
+		"name": "TIN-BikeShop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/Account/LogIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"UserName\": \"test@wp.pl\",\r\n   \"Password\":\"1qaz@WSX\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Account/LogIn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Account",
+						"LogIn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/Shop",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMiLCJuYW1laWQiOiJ0ZXN0bW9kZXJhdG9yQHdwLnBsIiwicm9sZSI6Ik1vZGVyYXRvciIsIm5iZiI6MTYwMzM5NzA0NCwiZXhwIjoxNjAzMzk3NjQ0LCJpYXQiOjE2MDMzOTcwNDR9.2eNPKqX_zafE9GqWHISvO46iqFvyZt_IfBfK3dux-fs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Shop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Shop"
+					]
+				},
+				"description": "Role = Moderator"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

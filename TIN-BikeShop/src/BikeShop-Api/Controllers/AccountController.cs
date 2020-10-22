@@ -9,6 +9,7 @@ using BikeShop_Core.Entities;
 using BikeShop_Infrastructure.Authorization;
 using BikeShop_Infrastructure.Authorization.Models;
 using BikeShop_Infrastructure.Contexts;
+using BikeShop_Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -27,25 +28,27 @@ namespace BikeShop_Api.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly BikeShopContext _context;
-        private readonly BikeShopJwtConfig _config;
+        private readonly IUserAuthenticationService _authorizationManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, BikeShopContext context, BikeShopJwtConfig config)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+            RoleManager<ApplicationRole> roleManager, BikeShopContext context, IUserAuthenticationService authorizationManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _context = context;
-            _config = config;
+            _authorizationManager = authorizationManager;
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateToken([FromBody] JwtTokenModel model)
+        public async Task<IActionResult> CreateToken([FromBody] LoginModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
+
             ApplicationUser user = await _userManager.FindByNameAsync(model.UserName);
 
             var signInResult = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
@@ -53,81 +56,22 @@ namespace BikeShop_Api.Controllers
             {
                 return BadRequest();
             }
+            var roles = (await _userManager.GetRolesAsync(user))?.ToArray();
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.Key));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = _authorizationManager.GenerateJwtToken(user, roles);
 
-
-            var roles = await _userManager.GetRolesAsync(user);
-            var claims = new[]
+            var response = new
             {
-                new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub, model.UserName),
-                new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.UniqueName, model.UserName),
-                new Claim(ClaimTypes.Role, string.Join(", ", roles)),
-                new Claim(ClaimTypes.NameIdentifier, model.UserName)
-
+                token = token,
             };
 
-            var token = new JwtSecurityToken
-            (
-                _config.Issuer,
-                _config.Audience,
-                claims,
-                expires: DateTime.UtcNow.AddDays(1),
-                signingCredentials: creds
-            );
-
-            var results = new
-            {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = token.ValidTo
-            };
-
-            return Created("", results);
+            return Created("", response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> LogOut([FromBody] JwtTokenModel model)
+        public async Task<IActionResult> LogOut([FromBody] LoginModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            ApplicationUser user = await _userManager.FindByNameAsync(model.UserName);
-
-            var signInResult = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
-            if (!signInResult.Succeeded)
-            {
-                return BadRequest();
-            }
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.Key));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[]
-            {
-                new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub, model.UserName),
-                new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.UniqueName, model.UserName),
-            };
-
-            var token = new JwtSecurityToken
-            (
-                _config.Issuer,
-                _config.Audience,
-                claims,
-                expires: DateTime.UtcNow.AddDays(1),
-                signingCredentials: creds
-            );
-
-            var results = new
-            {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = token.ValidTo
-            };
-
-            return Created("", results);
+            throw new NotImplementedException();
         }
     }
 }

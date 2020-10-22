@@ -15,6 +15,7 @@ namespace BikeShop_Infrastructure.Services
     {
         public string GenerateJwtToken(ApplicationUser user, string[] roles);
         public Task<ApplicationUser> GetCurrentUserAsync();
+        public Task<ApplicationUser> GetById(int userId);
     }
     public class UserAuthenticationService : IUserAuthenticationService
     {
@@ -57,6 +58,10 @@ namespace BikeShop_Infrastructure.Services
                 return await _context.Users.FindAsync(id);
             }   //TODO: Log
             return null;
+        }
+        public async Task<ApplicationUser> GetById(int userId)
+        {
+            return await _context.Users.FindAsync(userId);
         }
     }
 }

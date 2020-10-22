@@ -19,7 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace BikeShop_Api.Controllers
 {
-    [Authorize(AuthenticationSchemes = BikeShopJwtConfig.AuthShemes)]
+    [Authorize(Roles = "Admin, Moderator")]
     [Route("api/[controller]/[Action]")]
     [ApiController]
     public class AccountController : ControllerBase

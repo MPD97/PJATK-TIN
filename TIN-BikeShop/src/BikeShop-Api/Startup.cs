@@ -8,6 +8,7 @@ using BikeShop_Infrastructure.Authorization;
 using BikeShop_Infrastructure.Configurations.Seed;
 using BikeShop_Infrastructure.Contexts;
 using BikeShop_Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -34,14 +35,9 @@ namespace BikeShop_Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            BikeShopJwtConfig jwtConfig = new BikeShopJwtConfig();
-            _configuration.GetSection("BikeShopJwtConstrains").Bind(jwtConfig);
-
             UserAuthorizationSettings authorizationSettings = new UserAuthorizationSettings();
-            _configuration.GetSection("UserAuthorizationSettings").Bind(jwtConfig);
-
-            services.AddSingleton<BikeShopJwtConfig>(jwtConfig);
-            services.AddSingleton<UserAuthorizationSettings>(authorizationSettings);
+            _configuration.GetSection("UserAuthorizationSettings").Bind(authorizationSettings);
+            services.AddSingleton(authorizationSettings);
 
             services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 
@@ -54,20 +50,40 @@ namespace BikeShop_Api
                 .AddEntityFrameworkStores<BikeShopContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddAuthentication()
-                .AddCookie(config =>
+            services.AddAuthentication(config =>
+            {
+                config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(config =>
+            {
+                var key = Encoding.ASCII.GetBytes(authorizationSettings.Secret);
+
+                config.Events = new JwtBearerEvents
                 {
-                    config.SlidingExpiration = true;
-                })
-                .AddJwtBearer(config =>
-                {
-                    config.TokenValidationParameters = new TokenValidationParameters
+                    OnTokenValidated = context =>
                     {
-                        ValidIssuer = jwtConfig.Issuer,
-                        ValidAudience = jwtConfig.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Key))
-                    };
-                });
+                        var userService = context.HttpContext.RequestServices.GetRequiredService<IUserAuthenticationService>();
+                        var userId = int.Parse(context.Principal.Identity.Name);
+                        var user = userService.GetById(userId);
+                        if (user == null)
+                        {
+                            context.Fail("Unauthorized");
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
+                config.RequireHttpsMetadata = false;
+                config.SaveToken = true;
+                config.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
 
             services.AddControllers();
         }
@@ -84,6 +100,8 @@ namespace BikeShop_Api
             }
 
             ApplicationUsersInitializer.SeedUsers(userManager);
+
+            app.UseCors(config => config.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseRouting();
 

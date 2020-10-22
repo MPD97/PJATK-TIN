@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BikeShop_Infrastructure.Services
 {
@@ -40,8 +41,17 @@ namespace BikeShop_Infrastructure.Services
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
-
+            //TODO: Log
             return tokenHandler.WriteToken(token);
+        }
+        public async Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            var userId = _httpAccessor.HttpContext.User.Identity.Name;
+            if (int.TryParse(userId, out var id))
+            {
+                return await _context.Users.FindAsync(id);
+            }   //TODO: Log
+            return null;
         }
     }
 }

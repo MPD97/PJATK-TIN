@@ -60,7 +60,7 @@ namespace BikeShop_Api.Controllers
 
             var token = _authorizationManager.GenerateJwtToken(user, roles);
 
-            var response = new
+            var response = new //TODO: Create response model
             {
                 token = token,
             };

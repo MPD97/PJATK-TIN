@@ -94,10 +94,8 @@ namespace BikeShop_Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            else if (_environment.IsProduction())
-            {
-                context.Database.Migrate();
-            }
+
+            context.Database.Migrate();
 
             ApplicationUsersInitializer.SeedUsers(userManager);
 

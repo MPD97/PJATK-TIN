@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BikeShop_Api.Controllers
 {
-    [Authorize(Roles = "Moderator", AuthenticationSchemes = BikeShopJwtConfig.AuthShemes)]
+    [Authorize(Roles = "Moderator")]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class ShopController : ControllerBase

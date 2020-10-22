@@ -7,6 +7,7 @@ using BikeShop_Core.Entities;
 using BikeShop_Infrastructure.Authorization;
 using BikeShop_Infrastructure.Configurations.Seed;
 using BikeShop_Infrastructure.Contexts;
+using BikeShop_Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -36,7 +37,13 @@ namespace BikeShop_Api
             BikeShopJwtConfig jwtConfig = new BikeShopJwtConfig();
             _configuration.GetSection("BikeShopJwtConstrains").Bind(jwtConfig);
 
+            UserAuthorizationSettings authorizationSettings = new UserAuthorizationSettings();
+            _configuration.GetSection("UserAuthorizationSettings").Bind(jwtConfig);
+
             services.AddSingleton<BikeShopJwtConfig>(jwtConfig);
+            services.AddSingleton<UserAuthorizationSettings>(authorizationSettings);
+
+            services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 
             services.AddDbContext<BikeShopContext>(options =>
             {

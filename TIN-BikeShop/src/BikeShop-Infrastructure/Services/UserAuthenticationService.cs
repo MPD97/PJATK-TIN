@@ -11,7 +11,12 @@ using System.Threading.Tasks;
 
 namespace BikeShop_Infrastructure.Services
 {
-    public class UserAuthenticationService
+    public interface IUserAuthenticationService
+    {
+        public string GenerateJwtToken(ApplicationUser user, string[] roles);
+        public Task<ApplicationUser> GetCurrentUserAsync();
+    }
+    public class UserAuthenticationService : IUserAuthenticationService
     {
         private readonly BikeShopContext _context;
         private readonly IHttpContextAccessor _httpAccessor;

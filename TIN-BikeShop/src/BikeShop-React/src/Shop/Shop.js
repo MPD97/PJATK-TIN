@@ -20,6 +20,9 @@ function Shop() {
   function renderShop(shop) {
     return (
       <div className="Shop-Element" key={shop.shopId}>
+        <div className="Shop-Element__Image-Container">
+          <img src={require('../../public/' + shop.photoPath)} alt="Shop Image" />
+        </div>
         <div className="Shop-Element__Name">
           {shop.name}
         </div>

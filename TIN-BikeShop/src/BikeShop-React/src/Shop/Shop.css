@@ -1,0 +1,31 @@
+.Shop{
+    display: inline-flex;
+    align-content: center;
+}
+.Shop-Container{
+    display: flex;
+    
+}
+
+.Shop-Element{
+    display: inline-block;
+    width: 300px;
+    height: 250px;
+    background-color: #B58934;
+    margin: 20px;
+    border-radius: 15px;
+    border-style: solid;
+    border-width: 1px;
+
+}
+.Shop-Element__Image-Container{
+
+}
+.Shop-Element__Image-Container img{
+    margin: 5px;
+    width: 200px;
+    height: 180px;
+    border-radius: 15%;
+    border-style: solid;
+    border-width: 1px;
+}

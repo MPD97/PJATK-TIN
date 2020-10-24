@@ -9,7 +9,12 @@ using System.Threading.Tasks;
 
 namespace BikeShop_Infrastructure.Services.Shop
 {
-    public class ShopService
+    public interface IShopService
+    {
+        public Task<ShopResponseModel> Get(byte id);
+        public async Task<ICollection<ShopResponseModel>> GetAll();
+    }
+    public class ShopService : IShopService
     {
         private readonly BikeShopContext _context;
 

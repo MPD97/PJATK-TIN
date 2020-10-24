@@ -82,8 +82,8 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Price = storage.Product.PricePLN,
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == languageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == languageId).Text,
+                            Amount = storage.Amount
                         }).ToArrayAsync();
-                        break;
                     }
                 case Currency.USD:
                     {
@@ -93,8 +93,8 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Price = storage.Product.PriceUSD,
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == languageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == languageId).Text,
+                            Amount = storage.Amount
                         }).ToArrayAsync();
-                        break;
                     }
                 case Currency.EUR:
                     {
@@ -104,8 +104,8 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Price = storage.Product.PriceEUR,
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == languageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == languageId).Text,
+                            Amount = storage.Amount
                         }).ToArrayAsync();
-                        break;
                     }
                 default:
                     {

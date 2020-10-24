@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import LogIn from "../LogIn/LogIn";
 import LogOut from "../LogOut/LogOut";
-import Home from "../Home/Home";
+import Shop from "../Shop/Shop";
 import { Route, NavLink, HashRouter } from "react-router-dom";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
           </div>
         </header>
         <div className="App-Content">
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Shop} />
           <Route path="/LogIn" component={LogIn} />
           <Route path="/LogOut" component={LogOut} />
         </div>

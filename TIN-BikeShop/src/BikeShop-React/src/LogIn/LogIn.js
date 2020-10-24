@@ -11,11 +11,11 @@ function LogIn() {
                 </div>
                 <div className="LogIn-Form">
                     <div className="LogIn-Form__Element-Container">
-                        <label for="UserName">Nazwa Użytkownika: </label>
+                        <label htmlFor="UserName">Nazwa Użytkownika: </label>
                         <input type="text" name="UserName" required />
                     </div>
                     <div className="LogIn-Form__Element-Container">
-                        <label for="Password">Hasło:</label>
+                        <label htmlFor="Password">Hasło:</label>
                         <input type="password" name="Password" required />
                     </div>
                     <div className="LogIn-Form__Element-Container-Submit">

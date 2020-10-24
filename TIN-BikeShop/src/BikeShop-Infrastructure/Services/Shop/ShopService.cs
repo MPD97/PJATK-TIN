@@ -35,5 +35,22 @@ namespace BikeShop_Infrastructure.Services.Shop
                 }).FirstOrDefaultAsync();
             return res;
         }
+
+        public async Task<ICollection<ShopResponseModel>> GetAll()
+        {
+            var res = await _context.Shops
+                .Include(shop => shop.Address)
+                .Select(shop => new ShopResponseModel
+                {
+                    ShopId = shop.ShopId,
+                    Name = shop.Name,
+                    PhotoPath = shop.PhotoPath,
+                    City = shop.Address.City,
+                    Street = shop.Address.Street,
+                    StreetNumber = shop.Address.StreetNumber,
+                    ZipCode = shop.Address.ZipCode
+                }).ToArrayAsync();
+            return res;
+        }
     }
 }

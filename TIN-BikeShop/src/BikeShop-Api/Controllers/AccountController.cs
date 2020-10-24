@@ -68,10 +68,10 @@ namespace BikeShop_Api.Controllers
             return Created("", response);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> LogOut()
         {
-            var user = await _authorizationManager.GetCurrentUserAsync();
             await _signInManager.SignOutAsync();
          
             return Ok(new { status = "Pomyślnie wylogowano" });

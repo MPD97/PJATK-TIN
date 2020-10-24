@@ -1,0 +1,33 @@
+.LogIn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.LogIn-Container{
+    width: 220px;
+    height: 270px;
+    background-color: #5F697C;
+    margin: 25px;
+    border-radius: 7px;
+}
+
+.LogIn-Header{
+
+}
+.LogIn-Header h1{
+    color: #B58934;
+}
+.LogIn-Form{
+}
+.LogIn-Form__Element-Container{
+    text-align: left;
+}
+.LogIn-Form__Element-Container-Submit{
+    text-align: center;
+}
+.LogIn-Form label{
+    margin: 0 0 0 20px;
+}
+.LogIn-Form input{
+    margin: 5px 20px 20px 20px;
+}

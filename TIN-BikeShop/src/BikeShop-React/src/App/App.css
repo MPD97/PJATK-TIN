@@ -1,13 +1,11 @@
-#root{
-}
 .App {
   text-align: center;
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-
 }
+
 .App-header {
   background-color: #282c34;
-  height: 70px;
+  height: 55px;
   display: flex;
   flex: 0 0 auto;
   flex-direction: row;
@@ -35,8 +33,9 @@
   color: #d8d80e;
 }
 
+
 .App-Content{
-  background-color: #5F697C;
+  background-color: white;
 }
 
 

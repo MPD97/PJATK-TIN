@@ -25,13 +25,13 @@ namespace BikeShop_Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(byte id)
         {
-            return Ok(_serivce.Get(id));
+            return Ok(await _serivce.Get(id));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(_serivce.GetAll());
+            return Ok(await _serivce.GetAll());
         }
        
     }

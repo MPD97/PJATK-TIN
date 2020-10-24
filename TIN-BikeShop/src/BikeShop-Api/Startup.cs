@@ -8,6 +8,7 @@ using BikeShop_Infrastructure.Authorization;
 using BikeShop_Infrastructure.Configurations.Seed;
 using BikeShop_Infrastructure.Contexts;
 using BikeShop_Infrastructure.Services;
+using BikeShop_Infrastructure.Services.Shop;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -54,8 +55,7 @@ namespace BikeShop_Api
             {
                 config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(config =>
+            }).AddJwtBearer(config =>
             {
                 var key = Encoding.ASCII.GetBytes(authorizationSettings.Secret);
 
@@ -84,6 +84,8 @@ namespace BikeShop_Api
                     ClockSkew = TimeSpan.Zero
                 };
             });
+
+            services.AddScoped<IShopService, ShopService>();
 
             services.AddControllers();
         }

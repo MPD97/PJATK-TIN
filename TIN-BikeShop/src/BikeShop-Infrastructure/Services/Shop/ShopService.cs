@@ -12,7 +12,7 @@ namespace BikeShop_Infrastructure.Services.Shop
     public interface IShopService
     {
         public Task<ShopResponseModel> Get(byte id);
-        public async Task<ICollection<ShopResponseModel>> GetAll();
+        public Task<ICollection<ShopResponseModel>> GetAll();
     }
     public class ShopService : IShopService
     {

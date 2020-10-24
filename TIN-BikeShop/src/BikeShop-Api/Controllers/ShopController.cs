@@ -4,29 +4,35 @@ using System.Linq;
 using System.Threading.Tasks;
 using BikeShop_Infrastructure.Authorization;
 using BikeShop_Infrastructure.Contexts;
+using BikeShop_Infrastructure.Services.Shop;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeShop_Api.Controllers
 {
-    [Authorize(Roles = "Moderator")]
     [Route("api/[controller]")]
     [ApiController]
     public class ShopController : ControllerBase
     {
-        private readonly BikeShopContext _context;
+        private readonly IShopService _serivce;
 
-        public ShopController(BikeShopContext context)
+        public ShopController(IShopService serivce)
         {
-            _context = context;
+            _serivce = serivce;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(byte id)
+        {
+            return Ok(_serivce.Get(id));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(new { example = "success" });
+            return Ok(_serivce.GetAll());
         }
-
+       
     }
 }

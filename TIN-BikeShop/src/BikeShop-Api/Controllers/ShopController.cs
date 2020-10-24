@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BikeShop_Api.Controllers
 {
     [Authorize(Roles = "Moderator")]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ShopController : ControllerBase
     {

@@ -42,7 +42,7 @@ namespace BikeShop_Api.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateToken([FromBody] LoginModel model)
+        public async Task<IActionResult> LogIn([FromBody] LoginModel model)
         {
             if (!ModelState.IsValid)
             {

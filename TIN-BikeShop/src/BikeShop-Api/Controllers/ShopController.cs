@@ -33,6 +33,10 @@ namespace BikeShop_Api.Controllers
         {
             return Ok(await _serivce.GetAll());
         }
-       
+        [HttpGet("{id}/Product")]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            return Ok(await _serivce.GetAll());
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace BikeShop_Infrastructure.Services.Shop
         public async Task<ShopResponseModel> Get(byte id)
         {
             var res = await _context.Shops
+                .AsNoTracking()
                 .Where(shop => shop.ShopId == id)
                 .Include(shop => shop.Address)
                 .Select(shop => new ShopResponseModel
@@ -44,6 +45,7 @@ namespace BikeShop_Infrastructure.Services.Shop
         public async Task<ICollection<ShopResponseModel>> GetAll()
         {
             var res = await _context.Shops
+                .AsNoTracking()
                 .Include(shop => shop.Address)
                 .Select(shop => new ShopResponseModel
                 {
@@ -57,5 +59,27 @@ namespace BikeShop_Infrastructure.Services.Shop
                 }).ToArrayAsync();
             return res;
         }
+        public async Task<ICollection<ProductResponseModel>> GetAllProducts(byte shopId, byte languageId)
+        {
+            var res = _context.Storages
+                .AsNoTracking()
+                .Where(storage => storage.ShopId == shopId)
+                .Include(storage => storage.Product)
+                    .ThenInclude(product => product.ProductNames
+                        .Where(language => language.LanguageId == languageId))
+                .Include(storage => storage.Product)
+                    .ThenInclude(product => product.ProductDescriptions
+                        .Where(language => language.LanguageId == languageId))
+                .Select(storage => new ProductResponseModel
+                {
+                    ProductId = storage.Product.ProductId,
+                    Price = storage.Product.PricePLN,
+                    Name = storage.Product.ProductNames.First(name => name.LanguageId == languageId).Text,
+                    Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == languageId).Text,
+                });
+
+            return await res.ToArrayAsync();
+        }
+
     }
 }

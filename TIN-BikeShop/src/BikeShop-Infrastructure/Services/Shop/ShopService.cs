@@ -1,4 +1,5 @@
-﻿using BikeShop_Infrastructure.Contexts;
+﻿using BikeShop_Core.Entities;
+using BikeShop_Infrastructure.Contexts;
 using BikeShop_Infrastructure.Services.Shop.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +14,8 @@ namespace BikeShop_Infrastructure.Services.Shop
     {
         public Task<ShopResponseModel> Get(byte id);
         public Task<ICollection<ShopResponseModel>> GetAll();
+        public Task<ICollection<ProductResponseModel>> GetAllProducts(byte shopId, byte languageId, Currency currency);
+
     }
     public class ShopService : IShopService
     {
@@ -59,27 +62,63 @@ namespace BikeShop_Infrastructure.Services.Shop
                 }).ToArrayAsync();
             return res;
         }
-        public async Task<ICollection<ProductResponseModel>> GetAllProducts(byte shopId, byte languageId)
+        public async Task<ICollection<ProductResponseModel>> GetAllProducts(byte shopId, byte languageId, Currency currency)
         {
             var res = _context.Storages
                 .AsNoTracking()
                 .Where(storage => storage.ShopId == shopId)
                 .Include(storage => storage.Product)
-                    .ThenInclude(product => product.ProductNames
-                        .Where(language => language.LanguageId == languageId))
+                    .ThenInclude(product => product.ProductNames)
                 .Include(storage => storage.Product)
-                    .ThenInclude(product => product.ProductDescriptions
-                        .Where(language => language.LanguageId == languageId))
-                .Select(storage => new ProductResponseModel
-                {
-                    ProductId = storage.Product.ProductId,
-                    Price = storage.Product.PricePLN,
-                    Name = storage.Product.ProductNames.First(name => name.LanguageId == languageId).Text,
-                    Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == languageId).Text,
-                });
+                    .ThenInclude(product => product.ProductDescriptions);
 
-            return await res.ToArrayAsync();
+            switch (currency)
+            {
+                case Currency.PLN:
+                    {
+                        return await res.Select(storage => new ProductResponseModel
+                        {
+                            ProductId = storage.Product.ProductId,
+                            Price = storage.Product.PricePLN,
+                            Name = storage.Product.ProductNames.First(name => name.LanguageId == languageId).Text,
+                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == languageId).Text,
+                        }).ToArrayAsync();
+                        break;
+                    }
+                case Currency.USD:
+                    {
+                        return await res.Select(storage => new ProductResponseModel
+                        {
+                            ProductId = storage.Product.ProductId,
+                            Price = storage.Product.PriceUSD,
+                            Name = storage.Product.ProductNames.First(name => name.LanguageId == languageId).Text,
+                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == languageId).Text,
+                        }).ToArrayAsync();
+                        break;
+                    }
+                case Currency.EUR:
+                    {
+                        return await res.Select(storage => new ProductResponseModel
+                        {
+                            ProductId = storage.Product.ProductId,
+                            Price = storage.Product.PriceEUR,
+                            Name = storage.Product.ProductNames.First(name => name.LanguageId == languageId).Text,
+                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == languageId).Text,
+                        }).ToArrayAsync();
+                        break;
+                    }
+                default:
+                    {
+                        throw new NotImplementedException("Podano niezną walutę");
+                    }
+            }
         }
 
+    }
+    public enum Currency
+    {
+        PLN,
+        USD,
+        EUR
     }
 }

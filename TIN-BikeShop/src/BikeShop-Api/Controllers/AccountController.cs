@@ -78,7 +78,6 @@ namespace BikeShop_Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult Verifytoken()
         {
             if (_authorizationManager.VerifyToken())

@@ -7,12 +7,12 @@ import './LogIn.css';
 
 function LogIn() {
     const [language, setLanguage] = useState(Language.getLanguage());
-
     const [loading, setLoading] = useState(false);
     const username = useFormInput('');
     const password = useFormInput('');
     const [error, setError] = useState(null);
     const [LoggedIn, setLoggedIn] = useState(false);
+    
     let loadingText = language === 'PL' ? 'Wczytywanie...' : 'Loading...';
     let submitText = language === 'PL' ? 'Zaloguj' : 'Login';
 
@@ -32,25 +32,34 @@ function LogIn() {
         axios.post('http://localhost:5000/api/Account/LogIn', FD)
             .then(response => {
                 setLoading(false);
-                setUserSession(response.data.token, response.data.user);
-                console.debug('Logged In.');
+                setUserSession(response.data.token);
                 setLoggedIn(true);
-            }).catch(error => {
+                window.location.reload();
+                console.debug('Logged In.');
+            }).catch(err => {
                 setLoading(false);
-                console.error(error);
-                if (error.status >= 500) {
-                    if (language === 'PL')
-                        setError("Wystąpił błąd serwera.");
-                    else
-                        setError("Internal server error.");
-                    console.error(error.response.data.message);
+                console.error(err);
+                if (err.response) {
+                    if (err.status >= 500) {
+                        if (language === 'PL')
+                            setError("Wystąpił błąd serwera.");
+                        else
+                            setError("Internal server error.");
+                        console.error(err.response.data.message);
+                    }
+                    else {
+                        if (language === 'PL')
+                            setError("Nieprawidłowe login, lub hasło.")
+                        else
+                            setError("Invalid login attempt.")
+                    };
                 }
                 else {
                     if (language === 'PL')
                         setError("Nieprawidłowe login, lub hasło.")
                     else
                         setError("Invalid login attempt.")
-                };
+                }
             });
     }
 

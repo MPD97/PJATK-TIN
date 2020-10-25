@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import axios from 'axios';
+import { getToken, removeUserSession, setUserSession,tokenExist } from '../Utils/Auth';
 import LogIn from "../LogIn/LogIn";
 import LogOut from "../LogOut/LogOut";
 import Shop from "../Shop/Shop";
 import Product from "../Products/Product";
 import { BrowserRouter as Router, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams } from "react-router-dom";
 import Language, { Currency } from "../Utils/Cookie";
+import './App.css';
 
 
 function App() {
   const [authLoading, setAuthLoading] = useState(true);
+  const [authorized, setAuthorized] = useState(tokenExist());
   const [language, setLanguage] = useState(Language.getLanguage());
   const [currency, setCurrency] = useState(Currency.getCurrency());
+  const [error, setError] = useState(null);
+
 
   function setLng(lang) {
     Language.setLanguage(lang);
@@ -24,13 +29,53 @@ function App() {
     window.location.reload();
   }
 
+
+  useEffect(() => {
+    const token = getToken();
+    axios.get('http://localhost:5000/api/Account/VerifyToken', { headers: { "Authorization": `Bearer ${token}` } })
+      .then(response => {
+        console.log(response);
+        if (response.status == 200) {
+          setAuthLoading(false);
+          setAuthorized(true);
+        }
+        else {
+          removeUserSession();
+          setAuthLoading(false);
+        }
+      }).catch(err => {
+        if (err.response) {
+          if (err.response.status >= 500) {
+            console.debug("Server internal error.");
+            setError("")
+          }
+          else if (err.response.status == 401) {
+            console.debug("Token is not valid.");
+            removeUserSession();
+            setAuthLoading(false);
+            setAuthorized(false);
+          }
+        }
+        else {
+          console.debug("Token is not valid.");
+          removeUserSession();
+          setAuthLoading(false);
+          setAuthorized(false);
+        }
+      });
+  }, []);
+
+  if (authLoading) {
+    return <div className="content" > Trwa logowanie... </div>
+  }
+
   return (
     <HashRouter>
       <div className="App">
         <header className="App-header">
           <div className="Header-Nav">
             <NavLink to="/" className="Header-Nav__Link">
-              {language == 'PL' ? 'Nasze Sklepy' : 'Our Shops'}
+              {language == 'PL' ? 'Sklep' : 'Shops'}
             </NavLink >
           </div>
           <div className="Header-Nav">
@@ -65,12 +110,13 @@ function App() {
             </div>
           </div>
           <div className="Header-Nav">
-            <NavLink to="/LogIn" className="Header-Nav__Link">
-              {language == 'PL' ? 'Logowanie' : 'Login'}
-            </NavLink >
-            <NavLink to="/LogOut" className="Header-Nav__Link">
-              {language == 'PL' ? 'Wyloguj' : 'LogOut'}
-            </NavLink >
+            {authorized == false ?
+              <NavLink to="/LogIn" className="Header-Nav__Link">
+                {language == 'PL' ? 'Logowanie' : 'Login'}
+              </NavLink > :
+              <NavLink to="/LogOut" className="Header-Nav__Link">
+                {language == 'PL' ? 'Wyloguj' : 'LogOut'}
+              </NavLink >}
           </div>
         </header>
         <div className="App-Content">

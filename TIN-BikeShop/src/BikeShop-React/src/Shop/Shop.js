@@ -18,10 +18,6 @@ function Shop() {
       setLoading(false);
     });
   }, []);
-
-  const handleShopClick = () => {
-    window.location.pathname = "/Product";
-  }
   function renderShop(shop) {
     return (
       <div className="Shop-Element" key={shop.shopId}>
@@ -36,11 +32,10 @@ function Shop() {
         </div>
         <div className="Shop-Element__Enter">
           <HashRouter>
-            <NavLink to={`/Shop/${shop.shopId}/Product`}>
+            <NavLink to={`/Shop/${shop.shopId}/Product`} className="button">
               Pokaż Produkty
             </NavLink>
           </HashRouter>
-          <button onClick={handleShopClick}>Pokaż Produkty</button>
         </div>
       </div>
     );

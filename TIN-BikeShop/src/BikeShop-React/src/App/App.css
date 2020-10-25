@@ -18,6 +18,7 @@
   display: inline-block;
 }
 .Header-Nav__Link{
+  display: block;
   text-decoration: none;
   margin: 0 10px 0 10px;
   cursor: pointer;

@@ -33,9 +33,9 @@ function App() {
             </NavLink >
           </div>
           <div className="Header-Nav">
-              <div>
-                {language == 'PL' ? 'Język:' : 'Language:'}
-              </div>
+            <div>
+              {language == 'PL' ? 'Język:' : 'Language:'}
+            </div>
             <div className="Header-Currency__Container">
               <div className={`Header-Nav__Link-Language ${language == "PL" ? 'active' : ''}`} onClick={() => setLng('PL')}>
                 Polski

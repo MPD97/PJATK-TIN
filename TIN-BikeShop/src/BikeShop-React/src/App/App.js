@@ -33,23 +33,35 @@ function App() {
             </NavLink >
           </div>
           <div className="Header-Nav">
-            <div className="Header-Nav__Link-Language" onClick={() => setLng('PL')}>
-              Polski
+              <div>
+                {language == 'PL' ? 'Język:' : 'Language:'}
+              </div>
+            <div className="Header-Currency__Container">
+              <div className={`Header-Nav__Link-Language ${language == "PL" ? 'active' : ''}`} onClick={() => setLng('PL')}>
+                Polski
             </div >
-            <div className="Header-Nav__Link-Language" onClick={() => setLng('EN')}>
-              English
+              <div className={`Header-Nav__Link-Language ${language == "EN" ? 'active' : ''}`} onClick={() => setLng('EN')}>
+                English
             </div >
+            </div>
           </div>
           <div className="Header-Nav">
-            <div className="Header-Nav__Link-Language" onClick={() => setCurr('PLN')}>
-              PLN
-            </div >
-            <div className="Header-Nav__Link-Language" onClick={() => setCurr('USD')}>
-              USD
-            </div >
-            <div className="Header-Nav__Link-Language" onClick={() => setCurr('EUR')}>
-              EUR
-            </div >
+            <div className="Header-Currency__Container-Label">
+              <div>
+                {language == 'PL' ? 'Waluta:' : 'Currency:'}
+              </div>
+              <div className="Header-Currency__Container">
+                <div className={`Header-Nav__Link-Language ${currency == "PLN" ? 'active' : ''}`} onClick={() => setCurr('PLN')}>
+                  PLN
+                </div >
+                <div className={`Header-Nav__Link-Language ${currency == "USD" ? 'active' : ''}`} onClick={() => setCurr('USD')}>
+                  USD
+                </div >
+                <div className={`Header-Nav__Link-Language ${currency == "EUR" ? 'active' : ''}`} onClick={() => setCurr('EUR')}>
+                  EUR
+                </div >
+              </div>
+            </div>
           </div>
           <div className="Header-Nav">
             <NavLink to="/LogIn" className="Header-Nav__Link">

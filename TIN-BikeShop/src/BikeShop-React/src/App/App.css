@@ -15,8 +15,7 @@
   color: white;
 }
 .Header-Nav{
-  display: flex;
-  
+  display: inline-block;
 }
 .Header-Nav__Link{
   text-decoration: none;
@@ -39,7 +38,15 @@
   cursor: pointer;
   transition: color 300ms ease;
 }
-
+.active{
+  color: #d8d80e;
+}
+.Header-Currency__Container{
+  display: inline-block;
+}
+.Header-Currency__Container{
+  display: flex;
+}
 .App-Content{
   background-color: white;
 }

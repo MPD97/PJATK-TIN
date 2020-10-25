@@ -8,9 +8,10 @@
 }
 
 .red {
-    color:  #8A3324;
+    color:  #a82d17;
     font-weight: 600;
     display: inline-block;
+    text-shadow: 1px 1px #3f150e;
 }
 
 .Product-Element{
@@ -27,12 +28,17 @@
 .Product-Element__Name{
     height: 40px;
     font-weight: 600;
+    text-shadow: 1px 1px #0b62a0;
 }
 .Product-Element__Details-Description{
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    padding: 0 10px 0 10px;
+}
+.Product-Element__Details-Price{
+    margin: 10px 0 5px 0;
 }
 .Product-Element__Image-Container img{
     margin: 5px;
@@ -51,16 +57,12 @@
     box-shadow: 4px 4px grey;
     border-radius: 3px;
     font-weight: 400;
-    width: 150px;
     font: bold 11px Arial;
     text-decoration: none;
     background-color: #EEEEEE;
     color: #333333;
     padding: 2px 6px 2px 6px;
-    border-top: 1px solid #CCCCCC;
-    border-right: 1px solid #333333;
-    border-bottom: 1px solid #333333;
-    border-left: 1px solid #CCCCCC;
+    border: 1px solid #333333;
   }
   .Product-Element__Enter .button:hover {
     cursor: pointer;

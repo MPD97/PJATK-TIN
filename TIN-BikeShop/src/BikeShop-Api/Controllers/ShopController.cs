@@ -35,7 +35,7 @@ namespace BikeShop_Api.Controllers
         }
 
         [HttpGet("{shopId}/Product")]
-        public async Task<IActionResult> GetAllProducts(byte shopId, [FromHeader] string language, [FromHeader] Currency currency = Currency.PLN)
+        public async Task<IActionResult> GetAllProducts(byte shopId, [FromHeader] string language, [FromHeader] Currency currency )
         {
             return Ok(await _serivce.GetAllProducts(shopId, language, currency));
         }

@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams } from "react-router-dom";
-import Language from "../Utils/Language"
+import Language, { Currency } from "../Utils/Cookie"
 import "./Product.css"
 
 function Product() {
     let { shopId } = useParams();
 
+    const [currency, setCurrency] = useState(Currency.getCurrency());
     const [language, setLanguage] = useState(Language.getLanguage());
     const [loading, setLoading] = useState(false);
     const [products, setProducts] = useState(false);
 
     useEffect(() => {
+        console.log('Currency: ' + currency);
+        console.log('Language: ' + language);
         axios.defaults.headers.common['language'] = language
+        axios.defaults.headers.common['currency'] = currency;
         axios.get(`http://localhost:5000/api/Shop/${shopId}/Product`).then(response => {
             console.debug(response.data);
             setProducts(response.data);
@@ -33,12 +37,11 @@ function Product() {
                     {product.name}
                 </div>
                 <div className="Product-Element__Details-Description">
-                    <small>{product.description}</small>
+                    <small><i>{product.description}</i></small>
                 </div>
-                <div>
-                    {language == 'PL' ? <> Cena: <div className="red" >{product.price}</div> zł</> : <> Price: <div className="red" >{product.price}</div> zł</>}
-
-
+                <div className="Product-Element__Details-Price">
+                    {language == 'PL' ? <> Cena: <div className="red" >{product.price}</div>  {currency}</> : <> Price: <div className="red" >{product.price}</div>  {currency}</>}
+                   
                 </div>
                 <div className="Product-Element__Enter">
                     <HashRouter>

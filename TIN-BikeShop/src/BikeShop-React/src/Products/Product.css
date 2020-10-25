@@ -1,0 +1,71 @@
+
+.Product{
+    display: inline-flex;
+    align-content: center;
+}
+.Product-Container{
+    display: block;
+}
+
+.red {
+    color:  #a82d17;
+    font-weight: 600;
+    display: inline-block;
+    text-shadow: 1px 1px #3f150e;
+}
+
+.Product-Element{
+    display: inline-block;
+    width: 300px;
+    height: 370px;
+    background-color: #3D7BA6;
+    margin: 20px;
+    border-radius: 15px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 10px 10px grey;
+}
+.Product-Element__Name{
+    height: 40px;
+    font-weight: 600;
+    text-shadow: 1px 1px #0b62a0;
+}
+.Product-Element__Details-Description{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    padding: 0 10px 0 10px;
+}
+.Product-Element__Details-Price{
+    margin: 10px 0 5px 0;
+}
+.Product-Element__Image-Container img{
+    margin: 5px;
+    width: 200px;
+    height: 180px;
+    border-radius: 15%;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.Product-Element__Enter{
+    margin: 10px;
+}
+.Product-Element__Enter .button {
+    margin: 10px;
+    box-shadow: 4px 4px grey;
+    border-radius: 3px;
+    font-weight: 400;
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 2px 6px 2px 6px;
+    border: 1px solid #333333;
+  }
+  .Product-Element__Enter .button:hover {
+    cursor: pointer;
+    font-weight: 600;
+    background-color: #259D4E;
+  }

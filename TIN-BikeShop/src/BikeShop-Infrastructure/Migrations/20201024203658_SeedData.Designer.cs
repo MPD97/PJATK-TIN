@@ -4,14 +4,16 @@ using BikeShop_Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BikeShop_Infrastructure.Migrations
 {
     [DbContext(typeof(BikeShopContext))]
-    partial class BikeShopContextModelSnapshot : ModelSnapshot
+    [Migration("20201024203658_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,21 +103,21 @@ namespace BikeShop_Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "76df4ead-555b-467c-b15c-86c6288d8a53",
+                            ConcurrencyStamp = "bb92c056-90ea-4895-9fce-c67bc8fc5696",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "9a3464e5-bf16-4324-a17d-ae64cdef8e23",
+                            ConcurrencyStamp = "4d01c426-cd1a-4fe7-b7a3-c8b99fc8046c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "60266453-47f7-44f1-878c-b8f7357331fa",
+                            ConcurrencyStamp = "7e7daf93-a462-4a84-b39f-51fdcb348098",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -229,11 +231,6 @@ namespace BikeShop_Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("PhotoPath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(260)")
-                        .HasMaxLength(260);
-
                     b.Property<decimal>("PriceEUR")
                         .HasColumnType("decimal(10,2)");
 
@@ -251,7 +248,6 @@ namespace BikeShop_Infrastructure.Migrations
                         new
                         {
                             ProductId = 1,
-                            PhotoPath = "product1.jpg",
                             PriceEUR = 339.99m,
                             PricePLN = 1239.49m,
                             PriceUSD = 399.00m
@@ -259,7 +255,6 @@ namespace BikeShop_Infrastructure.Migrations
                         new
                         {
                             ProductId = 2,
-                            PhotoPath = "product2.jpg",
                             PriceEUR = 167.99m,
                             PricePLN = 679.99m,
                             PriceUSD = 199.00m
@@ -267,7 +262,6 @@ namespace BikeShop_Infrastructure.Migrations
                         new
                         {
                             ProductId = 3,
-                            PhotoPath = "product3.jpg",
                             PriceEUR = 14.99m,
                             PricePLN = 69.00m,
                             PriceUSD = 19.99m

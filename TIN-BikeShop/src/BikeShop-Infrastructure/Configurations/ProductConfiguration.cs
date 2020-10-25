@@ -19,6 +19,10 @@ namespace BikeShop_Infrastructure.Configurations
             builder.Property(a => a.PriceEUR)
                 .HasColumnType("decimal(10,2)");
 
+            builder.Property(a => a.PhotoPath)
+                .HasMaxLength(Product.PHOTO_PATH_MAX_LENGTH)
+                .IsRequired();
+
             builder.HasMany(a => a.ProductNames)
                 .WithOne(a => a.Product)
                 .HasForeignKey(a => a.ProductId)

@@ -74,7 +74,7 @@ namespace BikeShop_Api.Controllers
         {
             await _signInManager.SignOutAsync();
          
-            return Ok(new { status = "Pomyślnie wylogowano" });
+            return Ok();
         }
     }
 }

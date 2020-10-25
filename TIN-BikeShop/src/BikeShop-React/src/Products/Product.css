@@ -53,19 +53,20 @@
     margin: 10px;
 }
 .Product-Element__Enter .button {
-    margin: 10px;
     box-shadow: 4px 4px grey;
     border-radius: 3px;
     font-weight: 400;
-    font: bold 11px Arial;
+    font: bold 15px Arial;
     text-decoration: none;
     background-color: #EEEEEE;
     color: #333333;
     padding: 2px 6px 2px 6px;
     border: 1px solid #333333;
+    cursor: pointer;
   }
   .Product-Element__Enter .button:hover {
     cursor: pointer;
     font-weight: 600;
-    background-color: #259D4E;
+    color: #d8d80e;
+    background-color: #282c34;
   }

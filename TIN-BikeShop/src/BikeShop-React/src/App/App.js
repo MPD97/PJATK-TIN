@@ -9,6 +9,7 @@ import Language, { Currency } from "../Utils/Cookie";
 
 
 function App() {
+  const [authLoading, setAuthLoading] = useState(true);
   const [language, setLanguage] = useState(Language.getLanguage());
   const [currency, setCurrency] = useState(Currency.getCurrency());
 

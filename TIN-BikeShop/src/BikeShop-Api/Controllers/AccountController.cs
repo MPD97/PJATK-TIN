@@ -42,7 +42,7 @@ namespace BikeShop_Api.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> LogIn([FromBody] LoginModel model)
+        public async Task<IActionResult> LogIn([FromForm]LoginModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace BikeShop_Api.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-         
+
             return Ok();
         }
     }

@@ -14,7 +14,7 @@ namespace BikeShop_Infrastructure.Services.Shop
     {
         public Task<ShopResponseModel> Get(byte id);
         public Task<ICollection<ShopResponseModel>> GetAll();
-        public Task<ICollection<ProductResponseModel>> GetAllProducts(byte shopId, byte languageId, Currency currency);
+        public Task<ICollection<ProductResponseModel>> GetAllProducts(byte shopId, string language, Currency currency);
 
     }
     public class ShopService : IShopService
@@ -62,8 +62,12 @@ namespace BikeShop_Infrastructure.Services.Shop
                 }).ToArrayAsync();
             return res;
         }
-        public async Task<ICollection<ProductResponseModel>> GetAllProducts(byte shopId, byte languageId, Currency currency)
+        public async Task<ICollection<ProductResponseModel>> GetAllProducts(byte shopId, string language, Currency currency)
         {
+            var lang = _context.Languages
+                .AsNoTracking()
+                .First(lang => lang.LanguageShort.ToUpper() == language.ToUpper());
+
             var res = _context.Storages
                 .AsNoTracking()
                 .Where(storage => storage.ShopId == shopId)
@@ -80,8 +84,8 @@ namespace BikeShop_Infrastructure.Services.Shop
                         {
                             ProductId = storage.Product.ProductId,
                             Price = storage.Product.PricePLN,
-                            Name = storage.Product.ProductNames.First(name => name.LanguageId == languageId).Text,
-                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == languageId).Text,
+                            Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
+                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
                             PhotoPath = storage.Product.PhotoPath
                         }).ToArrayAsync();
@@ -92,8 +96,8 @@ namespace BikeShop_Infrastructure.Services.Shop
                         {
                             ProductId = storage.Product.ProductId,
                             Price = storage.Product.PriceUSD,
-                            Name = storage.Product.ProductNames.First(name => name.LanguageId == languageId).Text,
-                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == languageId).Text,
+                            Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
+                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
                             PhotoPath = storage.Product.PhotoPath
                         }).ToArrayAsync();
@@ -104,8 +108,8 @@ namespace BikeShop_Infrastructure.Services.Shop
                         {
                             ProductId = storage.Product.ProductId,
                             Price = storage.Product.PriceEUR,
-                            Name = storage.Product.ProductNames.First(name => name.LanguageId == languageId).Text,
-                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == languageId).Text,
+                            Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
+                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
                             PhotoPath = storage.Product.PhotoPath
                         }).ToArrayAsync();

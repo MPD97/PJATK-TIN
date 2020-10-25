@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams } from "react-router-dom";
-
+import Language from "../Utils/Language"
 import './Shop.css';
 
 function Shop() {
+  const [language, setLanguage] = useState(Language.getLanguage());
   const [loading, setLoading] = useState(false);
   const [shops, setShops] = useState(false);
 
   useEffect(() => {
+    axios.defaults.headers.common['language'] = language
     axios.get('http://localhost:5000/api/Shop').then(response => {
       console.debug(response.data);
       setShops(response.data);
@@ -18,6 +20,7 @@ function Shop() {
       setLoading(false);
     });
   }, []);
+
   function renderShop(shop) {
     return (
       <div className="Shop-Element" key={shop.shopId}>
@@ -33,7 +36,7 @@ function Shop() {
         <div className="Shop-Element__Enter">
           <HashRouter>
             <NavLink to={`/Shop/${shop.shopId}/Product`} className="button">
-              Pokaż Produkty
+              {language == 'PL' ? 'Pokaż produkty' : 'Show Products'}
             </NavLink>
           </HashRouter>
         </div>

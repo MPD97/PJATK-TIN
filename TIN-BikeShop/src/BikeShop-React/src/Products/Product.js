@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams } from "react-router-dom";
-
+import Language from "../Utils/Language"
 import "./Product.css"
 
 function Product() {
     let { shopId } = useParams();
 
+    const [language, setLanguage] = useState(Language.getLanguage());
     const [loading, setLoading] = useState(false);
     const [products, setProducts] = useState(false);
 
     useEffect(() => {
+        axios.defaults.headers.common['language'] = language
         axios.get(`http://localhost:5000/api/Shop/${shopId}/Product`).then(response => {
             console.debug(response.data);
             setProducts(response.data);
@@ -34,12 +36,14 @@ function Product() {
                     <small>{product.description}</small>
                 </div>
                 <div>
-                    Cena: <div className="red" >{product.price}</div> zł
-            </div>
+                    {language == 'PL' ? <> Cena: <div className="red" >{product.price}</div> zł</> : <> Price: <div className="red" >{product.price}</div> zł</>}
+
+
+                </div>
                 <div className="Product-Element__Enter">
                     <HashRouter>
                         <NavLink to={`/Shop/${shopId}/Product/${product.productId}`} className="button">
-                            Pokaż Szczegóły
+                            {language == 'PL' ? 'Szczegóły' : 'Details'}
                         </NavLink>
                     </HashRouter>
                 </div>

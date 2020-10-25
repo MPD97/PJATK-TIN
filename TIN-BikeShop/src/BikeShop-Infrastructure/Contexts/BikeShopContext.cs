@@ -56,21 +56,26 @@ namespace BikeShop_Infrastructure.Contexts
                 ProductId = 1,
                 PricePLN = 1239.49M,
                 PriceEUR = 339.99M,
-                PriceUSD = 399.00M
+                PriceUSD = 399.00M,
+                PhotoPath = "product1.jpg"
             };
             Product product2 = new Product
             {
                 ProductId = 2,
                 PricePLN = 679.99M,
                 PriceEUR = 167.99M,
-                PriceUSD = 199.00M
+                PriceUSD = 199.00M,
+                PhotoPath = "product2.jpg"
+
             };
             Product product3 = new Product
             {
                 ProductId = 3,
                 PricePLN = 69.00M,
                 PriceEUR = 14.99M,
-                PriceUSD = 19.99M
+                PriceUSD = 19.99M,
+                PhotoPath = "product3.jpg"
+
             };
 
 

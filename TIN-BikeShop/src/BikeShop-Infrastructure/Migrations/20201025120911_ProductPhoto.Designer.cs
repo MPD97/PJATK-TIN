@@ -4,14 +4,16 @@ using BikeShop_Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BikeShop_Infrastructure.Migrations
 {
     [DbContext(typeof(BikeShopContext))]
-    partial class BikeShopContextModelSnapshot : ModelSnapshot
+    [Migration("20201025120911_ProductPhoto")]
+    partial class ProductPhoto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

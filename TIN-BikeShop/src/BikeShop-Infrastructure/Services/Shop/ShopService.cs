@@ -15,7 +15,7 @@ namespace BikeShop_Infrastructure.Services.Shop
         public Task<ShopResponseModel> Get(byte id);
         public Task<ICollection<ShopResponseModel>> GetAll();
         public Task<ICollection<ProductResponseModel>> GetShopProducts(byte shopId, string language, Currency currency);
-        public Task<ICollection<ProductResponseModel>> GetShopProduct(byte shopId, int productId, string language, Currency currency);
+        public Task<ProductResponseModel> GetShopProduct(byte shopId, int productId, string language, Currency currency);
     }
     public class ShopService : IShopService
     {
@@ -120,7 +120,7 @@ namespace BikeShop_Infrastructure.Services.Shop
                     }
             }
         }
-        public async Task<ICollection<ProductResponseModel>> GetShopProduct(byte shopId, int productId, string language, Currency currency)
+        public async Task<ProductResponseModel> GetShopProduct(byte shopId, int productId, string language, Currency currency)
         {
             var lang = _context.Languages
                 .AsNoTracking()
@@ -147,7 +147,7 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
                             PhotoPath = storage.Product.PhotoPath
-                        }).ToArrayAsync();
+                        }).FirstOrDefaultAsync();
                     }
                 case Currency.USD:
                     {
@@ -159,7 +159,7 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
                             PhotoPath = storage.Product.PhotoPath
-                        }).ToArrayAsync();
+                        }).FirstOrDefaultAsync();
                     }
                 case Currency.EUR:
                     {
@@ -171,7 +171,7 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
                             PhotoPath = storage.Product.PhotoPath
-                        }).ToArrayAsync();
+                        }).FirstOrDefaultAsync();
                     }
                 default:
                     {

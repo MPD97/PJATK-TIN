@@ -11,7 +11,7 @@
     display: inline-block;
     width: 300px;
     height: 310px;
-    background-color: #B58934;
+    background-color: #5F697C;
     margin: 20px;
     border-radius: 15px;
     border-style: solid;
@@ -20,7 +20,10 @@
 }
 .Shop-Element__Name{
     height: 40px;
+    font-size: 18px;
     font-weight: 600;
+    color: #ca9222;
+    text-shadow: 3px 3px #0b62a0;
 }
 .Shop-Element__Image-Container{
 
@@ -29,9 +32,10 @@
     margin: 5px;
     width: 200px;
     height: 180px;
-    border-radius: 15%;
+    border-radius: 5%;
     border-style: solid;
-    border-width: 1px;
+    border-width: 2px;
+    box-shadow: 3px 3px #333333;
 }
 .Shop-Element__Details{
 

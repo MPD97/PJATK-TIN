@@ -12,7 +12,7 @@ function ProductDetails() {
     const [language, setLanguage] = useState(Language.getLanguage());
     const [loading, setLoading] = useState(false);
     const [product, setProduct] = useState(false);
-
+    let loadingText = language === 'PL' ? 'Wczytywanie...' : 'Loading...';
     useEffect(() => {
         axios.defaults.headers.common['language'] = language
         axios.defaults.headers.common['currency'] = currency;
@@ -26,36 +26,36 @@ function ProductDetails() {
             setLoading(false);
         });
     }, []);
-
+    function renderProductDetails(product) {
+        return (
+            <div className="Product-Element-Details" key={`product-${product.productId}`}>
+                <div className="Product-Element-Details__Inline">
+                    <div className="Product-Element__Image-Container">
+                        <img src={require('../../public/' + product.photoPath)} alt="Product Image" />
+                    </div>
+                    <div className="Product-Element-Details__Inline-Center"> 
+                        <div className="Product-Element-Details__Name">
+                            {product.name}
+                        </div>
+                        <div className="Product-Element-Details__Details-Description">
+                            <small><i>{product.description}</i></small>
+                        </div>
+                    </div>
+                </div>
+                <div className="Product-Element-Details__Details-Amount">
+                    {language == 'PL' ? <> Dostępne: <div className="green" >{product.amount}</div> sztuk</> : <> Available: <div className="green" >{product.amount}</div>  pieces</>}
+                </div>
+                <div className="Product-Element-Details__Details-Price">
+                    {language == 'PL' ? <> Cena: <div className="red" >{product.price}</div>  {currency}</> : <> Price: <div className="red" >{product.price}</div>  {currency}</>}
+                </div>
+               
+            </div>);
+    }
 
     return (
         <div className="Shop">
             <div className="Shop-Container">
-                {loading &&
-                    <>
-                        <div className="Product-Element" key={`product-${product.productId}`}>
-                            <div className="Product-Element__Image-Container">
-                                {/* <img src={require('../../public/' + product.photoPath)} alt="Product Image" /> */}
-                            </div>
-                            <div className="Product-Element__Name">
-                                {product.name}
-                            </div>
-                            <div className="Product-Element__Details-Description">
-                                <small><i>{product.description}</i></small>
-                            </div>
-                            <div className="Product-Element__Details-Price">
-                                {language == 'PL' ? <> Cena: <div className="red" >{product.price}</div>  {currency}</> : <> Price: <div className="red" >{product.price}</div>  {currency}</>}
-
-                            </div>
-                            <div className="Product-Element__Enter">
-                                <HashRouter>
-                                    <NavLink to={`/Shop/${shopId}/Product/${product.productId}`} className="button">
-                                        {language == 'PL' ? 'Szczegóły' : 'Details'}
-                                    </NavLink>
-                                </HashRouter>
-                            </div>
-                        </div>
-                    </>}
+                {loading == true ? renderProductDetails(product) : loadingText}
             </div>
         </div>
     );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams } from "react-router-dom";
 import Language, { Currency } from "../Utils/Cookie"
+import ProductDetails from "./ProductDetails"
 import "./Product.css"
 
 function Product() {

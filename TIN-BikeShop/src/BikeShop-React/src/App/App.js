@@ -5,6 +5,7 @@ import LogIn from "../LogIn/LogIn";
 import LogOut from "../LogOut/LogOut";
 import Shop from "../Shop/Shop";
 import Product from "../Products/Product";
+import ProductDetails from "../Products/ProductDetails";
 import { BrowserRouter as Router, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams } from "react-router-dom";
 import Language, { Currency } from "../Utils/Cookie";
 import './App.css';
@@ -121,9 +122,10 @@ function App() {
         </header>
         <div className="App-Content">
           <Route exact path="/" component={Shop} />
-          <Route path="/LogIn" component={LogIn} />
-          <Route path="/LogOut" component={LogOut} />
-          <Route path="/Shop/:shopId/Product" component={Product} />
+          <Route exact path="/LogIn" component={LogIn} />
+          <Route exact path="/LogOut" component={LogOut} />
+          <Route exact path="/Shop/:shopId/Product" component={Product} />
+          <Route exact path="/Shop/:shopId/Product/:productId" component={ProductDetails} />
         </div>
       </div>
     </HashRouter>

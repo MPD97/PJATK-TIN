@@ -3,20 +3,24 @@
     align-content: center;
 }
 .Shop-Container{
-    display: flex;
+    display: block;
     
 }
 
 .Shop-Element{
     display: inline-block;
     width: 300px;
-    height: 250px;
+    height: 310px;
     background-color: #B58934;
     margin: 20px;
     border-radius: 15px;
     border-style: solid;
     border-width: 1px;
-
+    box-shadow: 10px 10px grey;
+}
+.Shop-Element__Name{
+    height: 40px;
+    font-weight: 600;
 }
 .Shop-Element__Image-Container{
 
@@ -28,4 +32,22 @@
     border-radius: 15%;
     border-style: solid;
     border-width: 1px;
+}
+.Shop-Element__Details{
+
+}
+.Shop-Element__Enter{
+    margin: 10px;
+}
+.Shop-Element__Enter button{
+    margin: 10px;
+    box-shadow: 4px 4px grey;
+    border-radius: 3px;
+    font-weight: 400;
+    width: 150px;
+}
+.Shop-Element__Enter button:hover{
+    cursor: pointer;
+    font-weight: 600;
+    background-color: #259D4E;
 }

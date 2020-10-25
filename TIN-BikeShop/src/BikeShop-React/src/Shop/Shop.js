@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams } from "react-router-dom";
+
 import './Shop.css';
 
 function Shop() {
@@ -17,6 +19,9 @@ function Shop() {
     });
   }, []);
 
+  const handleShopClick = () => {
+    window.location.pathname = "/Product";
+  }
   function renderShop(shop) {
     return (
       <div className="Shop-Element" key={shop.shopId}>
@@ -25,6 +30,17 @@ function Shop() {
         </div>
         <div className="Shop-Element__Name">
           {shop.name}
+        </div>
+        <div className="Shop-Element__Details">
+          <small><i>{shop.city} ul.{shop.street} {shop.streetNumber}</i></small>
+        </div>
+        <div className="Shop-Element__Enter">
+          <HashRouter>
+            <NavLink to={`/Shop/${shop.shopId}/Product`}>
+              Pokaż Produkty
+            </NavLink>
+          </HashRouter>
+          <button onClick={handleShopClick}>Pokaż Produkty</button>
         </div>
       </div>
     );

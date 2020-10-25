@@ -3,7 +3,8 @@ import './App.css';
 import LogIn from "../LogIn/LogIn";
 import LogOut from "../LogOut/LogOut";
 import Shop from "../Shop/Shop";
-import { Route, NavLink, HashRouter } from "react-router-dom";
+import Product from "../Products/Product";
+import { BrowserRouter as Router, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams } from "react-router-dom";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <header className="App-header">
           <div className="Header-Nav">
             <NavLink to="/" className="Header-Nav__Link">
-              Sklep Rowerowy
+              Nasze Sklepy
             </NavLink >
           </div>
           <div className="Header-Nav">
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/" component={Shop} />
           <Route path="/LogIn" component={LogIn} />
           <Route path="/LogOut" component={LogOut} />
+          <Route path="/Shop/:shopId/Product" component={Product} />
         </div>
       </div>
     </HashRouter>

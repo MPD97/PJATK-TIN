@@ -86,7 +86,7 @@ namespace BikeShop_Api.Controllers
                 ApplicationUser user = await _authorizationManager.GetCurrentUserAsync();
                 var roles = (await _userManager.GetRolesAsync(user))?.ToArray();
 
-                return Ok();
+                return Ok(roles);
             }
             else
             {

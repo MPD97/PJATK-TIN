@@ -17,7 +17,7 @@ function App() {
   const [language, setLanguage] = useState(Language.getLanguage());
   const [currency, setCurrency] = useState(Currency.getCurrency());
   const [error, setError] = useState(null);
-
+  const [roles, setRoles] = useState(null);
 
   function setLng(lang) {
     Language.setLanguage(lang);

@@ -24,11 +24,11 @@ const Currency = {
     }
 }
 const Roles = {
-    setCurrency: function (roles) {
+    setRoles: function (roles) {
         console.debug('Setting Roles cookie: ' + roles);
         bake_cookie(cookie_key_roles, roles);
     },
-    getCurrency: function () {
+    getRoles: function () {
         return read_cookie(cookie_key_roles);
     }
 }

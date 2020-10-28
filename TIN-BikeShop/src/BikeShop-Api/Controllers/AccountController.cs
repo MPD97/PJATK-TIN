@@ -63,6 +63,7 @@ namespace BikeShop_Api.Controllers
             var response = new //TODO: Create response model
             {
                 token = token,
+                roles = roles
             };
 
             return Created("", response);
@@ -78,10 +79,13 @@ namespace BikeShop_Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Verifytoken()
+        public async Task<IActionResult> Verifytoken()
         {
             if (_authorizationManager.VerifyToken())
             {
+                ApplicationUser user = await _authorizationManager.GetCurrentUserAsync();
+                var roles = (await _userManager.GetRolesAsync(user))?.ToArray();
+
                 return Ok();
             }
             else

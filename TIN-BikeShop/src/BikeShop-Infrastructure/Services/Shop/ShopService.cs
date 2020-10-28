@@ -14,8 +14,8 @@ namespace BikeShop_Infrastructure.Services.Shop
     {
         public Task<ShopResponseModel> Get(byte id);
         public Task<ICollection<ShopResponseModel>> GetAll();
-        public Task<ICollection<ProductResponseModel>> GetAllProducts(byte shopId, string language, Currency currency);
-
+        public Task<ICollection<ProductResponseModel>> GetShopProducts(byte shopId, string language, Currency currency);
+        public Task<ProductResponseModel> GetShopProduct(byte shopId, int productId, string language, Currency currency);
     }
     public class ShopService : IShopService
     {
@@ -62,7 +62,7 @@ namespace BikeShop_Infrastructure.Services.Shop
                 }).ToArrayAsync();
             return res;
         }
-        public async Task<ICollection<ProductResponseModel>> GetAllProducts(byte shopId, string language, Currency currency)
+        public async Task<ICollection<ProductResponseModel>> GetShopProducts(byte shopId, string language, Currency currency)
         {
             var lang = _context.Languages
                 .AsNoTracking()
@@ -120,7 +120,65 @@ namespace BikeShop_Infrastructure.Services.Shop
                     }
             }
         }
+        public async Task<ProductResponseModel> GetShopProduct(byte shopId, int productId, string language, Currency currency)
+        {
+            var lang = _context.Languages
+                .AsNoTracking()
+                .First(lang => lang.LanguageShort.ToUpper() == language.ToUpper());
 
+            var res = _context.Storages
+                .AsNoTracking()
+                .Where(storage => storage.ShopId == shopId)
+                .Include(storage => storage.Product)
+                    .ThenInclude(product => product.ProductNames)
+                .Include(storage => storage.Product)
+                    .ThenInclude(product => product.ProductDescriptions)
+                    .Where(storage => storage.ProductId == productId);
+
+            switch (currency)
+            {
+                case Currency.PLN:
+                    {
+                        return await res.Select(storage => new ProductResponseModel
+                        {
+                            ProductId = storage.Product.ProductId,
+                            Price = storage.Product.PricePLN,
+                            Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
+                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
+                            Amount = storage.Amount,
+                            PhotoPath = storage.Product.PhotoPath
+                        }).FirstOrDefaultAsync();
+                    }
+                case Currency.USD:
+                    {
+                        return await res.Select(storage => new ProductResponseModel
+                        {
+                            ProductId = storage.Product.ProductId,
+                            Price = storage.Product.PriceUSD,
+                            Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
+                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
+                            Amount = storage.Amount,
+                            PhotoPath = storage.Product.PhotoPath
+                        }).FirstOrDefaultAsync();
+                    }
+                case Currency.EUR:
+                    {
+                        return await res.Select(storage => new ProductResponseModel
+                        {
+                            ProductId = storage.Product.ProductId,
+                            Price = storage.Product.PriceEUR,
+                            Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
+                            Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
+                            Amount = storage.Amount,
+                            PhotoPath = storage.Product.PhotoPath
+                        }).FirstOrDefaultAsync();
+                    }
+                default:
+                    {
+                        throw new NotImplementedException("Podano niezną walutę");
+                    }
+            }
+        }
     }
     public enum Currency
     {

@@ -16,6 +16,7 @@ namespace BikeShop_Infrastructure.Services
         public string GenerateJwtToken(ApplicationUser user, string[] roles);
         public Task<ApplicationUser> GetCurrentUserAsync();
         public Task<ApplicationUser> GetById(int userId);
+        public bool VerifyToken();
     }
     public class UserAuthenticationService : IUserAuthenticationService
     {
@@ -62,6 +63,15 @@ namespace BikeShop_Infrastructure.Services
         public async Task<ApplicationUser> GetById(int userId)
         {
             return await _context.Users.FindAsync(userId);
+        }
+        public bool VerifyToken()
+        {
+            var timestampValidTo = _httpAccessor.HttpContext.User.FindFirstValue("exp");
+            if (int.Parse(timestampValidTo) > DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -1,23 +1,21 @@
 
-.Product{
-    display: inline-flex;
-    align-content: center;
-}
-.Product-Container{
-    display: block;
-}
-
-.red {
-    color:  #a82d17;
+.green {
+    color: #1193aa;
     font-weight: 600;
     display: inline-block;
     text-shadow: 1px 1px #3f150e;
 }
-
-.Product-Element{
+.Product-Element-Details__Inline{
+    display: inline-flex;
+}
+.Product-Element-Details__Inline-Center{
+    padding: 20px;
+}
+.Product-Element-Details{
+    text-align: center;
     display: inline-block;
-    width: 300px;
-    height: 390px;
+    width: 800px;
+    height: 280px;
     background-color: #5F697C;
     margin: 20px;
     border-radius: 15px;
@@ -25,25 +23,28 @@
     border-width: 1px;
     box-shadow: 10px 10px grey;
 }
-.Product-Element__Name{
+.Product-Element-Details__Name{
     height: 40px;
     font-size: 18px;
     font-weight: 600;
     color: #ca9222;
     text-shadow: 3px 3px #0b62a0;
 }
-.Product-Element__Details-Description{
+.Product-Element-Details__Details-Description{
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     padding: 0 10px 0 10px;
 }
-.Product-Element__Details-Price{
+.Product-Element-Details__Details-Price{
     margin: 10px 0 5px 0;
 }
+.Product-Element__Image-Container{
+    padding: 10px;
+}
 .Product-Element__Image-Container img{
-    margin: 5px;
+    margin: 15px;
     width: 200px;
     height: 180px;
     border-radius: 15%;
@@ -52,10 +53,10 @@
     box-shadow: 3px 3px #333333;
 }
 
-.Product-Element__Enter{
+.Product-Element-Details__Enter{
     margin: 10px;
 }
-.Product-Element__Enter .button {
+.Product-Element-Details__Enter .button {
     box-shadow: 4px 4px grey;
     border-radius: 3px;
     font-weight: 400;
@@ -67,9 +68,10 @@
     border: 1px solid #333333;
     cursor: pointer;
   }
-  .Product-Element__Enter .button:hover {
+  .Product-Element-Details__Enter .button:hover {
     cursor: pointer;
     font-weight: 600;
     color: #d8d80e;
     background-color: #282c34;
   }
+ 

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { getToken, removeUserSession, setUserSession,tokenExist } from '../Utils/Auth';
+import { getToken, removeUserSession, tokenExist } from '../Utils/Auth';
 import LogIn from "../LogIn/LogIn";
 import LogOut from "../LogOut/LogOut";
 import Shop from "../Shop/Shop";
 import Product from "../Products/Product";
 import ProductDetails from "../Products/ProductDetails";
-import { BrowserRouter as Router, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams } from "react-router-dom";
-import Language, { Currency } from "../Utils/Cookie";
+import { BrowserRouter as Router, Route, NavLink, HashRouter } from "react-router-dom";
+import Language, { Currency, Roles } from "../Utils/Cookie";
 import './App.css';
 
 
@@ -16,8 +16,8 @@ function App() {
   const [authorized, setAuthorized] = useState(tokenExist());
   const [language, setLanguage] = useState(Language.getLanguage());
   const [currency, setCurrency] = useState(Currency.getCurrency());
+  const [roles, setRoles] = useState(Roles.getRoles());
   const [error, setError] = useState(null);
-  const [roles, setRoles] = useState(null);
 
   function setLng(lang) {
     Language.setLanguage(lang);
@@ -36,7 +36,9 @@ function App() {
     axios.get('http://localhost:5000/api/Account/VerifyToken', { headers: { "Authorization": `Bearer ${token}` } })
       .then(response => {
         console.log(response);
-        if (response.status == 200) {
+        if (response.status === 200) {
+          Roles.setRoles(response.data);
+          setRoles(response.data.roles);
           setAuthLoading(false);
           setAuthorized(true);
         }
@@ -50,7 +52,7 @@ function App() {
             console.debug("Server internal error.");
             setError("")
           }
-          else if (err.response.status == 401) {
+          else if (err.response.status === 401) {
             console.debug("Token is not valid.");
             removeUserSession();
             setAuthLoading(false);
@@ -76,18 +78,18 @@ function App() {
         <header className="App-header">
           <div className="Header-Nav">
             <NavLink to="/" className="Header-Nav__Link">
-              {language == 'PL' ? 'Sklep' : 'Shops'}
+              {language === 'PL' ? 'Sklep' : 'Shops'}
             </NavLink >
           </div>
           <div className="Header-Nav">
             <div>
-              {language == 'PL' ? 'Język:' : 'Language:'}
+              {language === 'PL' ? 'Język:' : 'Language:'}
             </div>
             <div className="Header-Currency__Container">
-              <div className={`Header-Nav__Link-Language ${language == "PL" ? 'active' : ''}`} onClick={() => setLng('PL')}>
+              <div className={`Header-Nav__Link-Language ${language === "PL" ? 'active' : ''}`} onClick={() => setLng('PL')}>
                 Polski
             </div >
-              <div className={`Header-Nav__Link-Language ${language == "EN" ? 'active' : ''}`} onClick={() => setLng('EN')}>
+              <div className={`Header-Nav__Link-Language ${language === "EN" ? 'active' : ''}`} onClick={() => setLng('EN')}>
                 English
             </div >
             </div>
@@ -98,13 +100,13 @@ function App() {
                 {language == 'PL' ? 'Waluta:' : 'Currency:'}
               </div>
               <div className="Header-Currency__Container">
-                <div className={`Header-Nav__Link-Language ${currency == "PLN" ? 'active' : ''}`} onClick={() => setCurr('PLN')}>
+                <div className={`Header-Nav__Link-Language ${currency === "PLN" ? 'active' : ''}`} onClick={() => setCurr('PLN')}>
                   PLN
                 </div >
-                <div className={`Header-Nav__Link-Language ${currency == "USD" ? 'active' : ''}`} onClick={() => setCurr('USD')}>
+                <div className={`Header-Nav__Link-Language ${currency === "USD" ? 'active' : ''}`} onClick={() => setCurr('USD')}>
                   USD
                 </div >
-                <div className={`Header-Nav__Link-Language ${currency == "EUR" ? 'active' : ''}`} onClick={() => setCurr('EUR')}>
+                <div className={`Header-Nav__Link-Language ${currency === "EUR" ? 'active' : ''}`} onClick={() => setCurr('EUR')}>
                   EUR
                 </div >
               </div>

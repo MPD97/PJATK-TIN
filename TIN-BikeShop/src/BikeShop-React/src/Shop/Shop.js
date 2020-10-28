@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams } from "react-router-dom";
-import Language, {Currency} from "../Utils/Cookie"
+import { BrowserRouter as Router, HashRouter, NavLink} from "react-router-dom";
+import Language, { Currency } from "../Utils/Cookie"
 import './Shop.css';
 
 function Shop() {
@@ -38,7 +38,7 @@ function Shop() {
         <div className="Shop-Element__Enter">
           <HashRouter>
             <NavLink to={`/Shop/${shop.shopId}/Product`} className="button">
-              {language == 'PL' ? 'Pokaż produkty' : 'Show Products'}
+              {language === 'PL' ? 'Pokaż produkty' : 'Show Products'}
             </NavLink>
           </HashRouter>
         </div>

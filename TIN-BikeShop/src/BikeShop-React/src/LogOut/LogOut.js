@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { getToken, removeUserSession, setUserSession, tokenExist } from '../Utils/Auth';
-import { BrowserRouter as Router, Redirect, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams, useHistory } from "react-router-dom";
+import { getToken, removeUserSession, tokenExist } from '../Utils/Auth';
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
 import Language from "../Utils/Cookie"
 import './LogOut.css';
 
@@ -31,7 +31,7 @@ function LogOut() {
   }, []);
   return (
     <>
-      {loading == true ? <>{loadingText}</> : <Redirect to="/" />}
+      {loading === true ? <>{loadingText}</> : <Redirect to="/" />}
     </>
   );
 }

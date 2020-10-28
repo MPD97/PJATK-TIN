@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, NavLink, HashRouter, useParams } from "react-router-dom";
 import Language, { Currency, Roles } from "../Utils/Cookie"
-import "./ProductDetails.css"
+import "./ProductEdit.css"
 
 function ProductDetails() {
     let { shopId } = useParams();
     let { productId } = useParams();
-
-    const ModeratorRole = "Moderator";
-    const AdminRole = "Admin";
 
     const [currency, setCurrency] = useState(Currency.getCurrency());
     const [language, setLanguage] = useState(Language.getLanguage());

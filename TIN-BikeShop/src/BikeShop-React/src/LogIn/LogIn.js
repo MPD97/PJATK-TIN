@@ -32,7 +32,7 @@ function LogIn() {
         axios.post('http://localhost:5000/api/Account/LogIn', FD)
             .then(response => {
                 setLoading(false);
-                setUserSession(response.data.token);
+                setUserSession(response.data.token, response.data.roles);
                 setLoggedIn(true);
                 window.location.reload();
                 console.debug('Logged In.');

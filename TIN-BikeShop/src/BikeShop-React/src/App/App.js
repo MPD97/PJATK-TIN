@@ -128,6 +128,7 @@ function App() {
           <Route exact path="/LogOut" component={LogOut} />
           <Route exact path="/Shop/:shopId/Product" component={Product} />
           <Route exact path="/Shop/:shopId/Product/:productId" component={ProductDetails} />
+          <Route exact path="/Shop/:shopId/Product/:productId/Edit" component={ProductDetails} />
         </div>
       </div>
     </HashRouter>

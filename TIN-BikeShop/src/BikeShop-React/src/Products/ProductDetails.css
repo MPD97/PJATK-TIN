@@ -14,14 +14,22 @@
 .Product-Element-Details{
     text-align: center;
     display: inline-block;
-    width: 800px;
-    height: 300px;
+    width: 700px;
+    height: 100%;
     background-color: #5F697C;
     margin: 20px;
     border-radius: 15px;
     border-style: solid;
     border-width: 1px;
     box-shadow: 10px 10px grey;
+}
+@media screen and (max-width: 855px) {
+    .Product-Element-Details{
+        width: 300px;
+    }
+    .Product-Element-Details__Inline{
+        display: block;
+    }
 }
 .Product-Element-Details__Name{
     height: 40px;
@@ -33,7 +41,6 @@
 .Product-Element-Details__Details-Description{
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     padding: 0 10px 0 10px;
 }
@@ -56,7 +63,8 @@
 .Product-Element-Details__Enter{
     margin: 10px;
 }
-.Product-Element-Details__Enter .button {
+
+   .button {
     box-shadow: 4px 4px grey;
     border-radius: 3px;
     font-weight: 400;
@@ -68,7 +76,7 @@
     border: 1px solid #333333;
     cursor: pointer;
   }
-  .Product-Element-Details__Enter .button:hover {
+   .button:hover {
     cursor: pointer;
     font-weight: 600;
     color: #d8d80e;

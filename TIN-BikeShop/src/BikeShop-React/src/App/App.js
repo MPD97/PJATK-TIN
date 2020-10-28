@@ -6,6 +6,8 @@ import LogOut from "../LogOut/LogOut";
 import Shop from "../Shop/Shop";
 import Product from "../Products/Product";
 import ProductDetails from "../Products/ProductDetails";
+import ProductEdit from "../Products/ProductEdit";
+
 import { BrowserRouter as Router, Route, NavLink, HashRouter } from "react-router-dom";
 import Language, { Currency, Roles } from "../Utils/Cookie";
 import './App.css';
@@ -128,7 +130,7 @@ function App() {
           <Route exact path="/LogOut" component={LogOut} />
           <Route exact path="/Shop/:shopId/Product" component={Product} />
           <Route exact path="/Shop/:shopId/Product/:productId" component={ProductDetails} />
-          <Route exact path="/Shop/:shopId/Product/:productId/Edit" component={ProductDetails} />
+          <Route exact path="/Shop/:shopId/Product/:productId/Edit" component={ProductEdit} />
         </div>
       </div>
     </HashRouter>

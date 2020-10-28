@@ -87,7 +87,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).ToArrayAsync();
                     }
                 case Currency.USD:
@@ -99,7 +102,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).ToArrayAsync();
                     }
                 case Currency.EUR:
@@ -111,7 +117,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).ToArrayAsync();
                     }
                 default:
@@ -146,7 +155,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).FirstOrDefaultAsync();
                     }
                 case Currency.USD:
@@ -158,7 +170,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).FirstOrDefaultAsync();
                     }
                 case Currency.EUR:
@@ -170,7 +185,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).FirstOrDefaultAsync();
                     }
                 default:

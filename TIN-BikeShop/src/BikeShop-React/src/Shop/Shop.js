@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, HashRouter, NavLink} from "react-router-dom";
+import { BrowserRouter as Router, HashRouter, NavLink } from "react-router-dom";
 import Language, { Currency } from "../Utils/Cookie"
 import './Shop.css';
 
 function Shop() {
   const [currency, setCurrency] = useState(Currency.getCurrency());
   const [language, setLanguage] = useState(Language.getLanguage());
-  const [loading, setLoading] = useState(false);
+  const [loaded, setLoading] = useState(false);
   const [shops, setShops] = useState(false);
+  const [error, setError] = useState(false);
+
 
   useEffect(() => {
     axios.defaults.headers.common['language'] = language;
@@ -19,7 +21,8 @@ function Shop() {
       setLoading(true);
     }).catch(error => {
       console.error(error);
-      setLoading(false);
+      setError(true);
+      setLoading(true);
     });
   }, []);
 
@@ -48,12 +51,14 @@ function Shop() {
 
 
   return (
-    <div className="Shop">
-      <div className="Shop-Container">
-        {loading && <> {shops.map((shop, i) => renderShop(shop))}  </>}
-      </div>
-    </div>
-  );
+    <>
+      {loaded && error ? <p>{language === 'PL' ? 'Wystąpił błąd połączenia z serwerem.' : 'Server is not responding.'}</p> :
+        <div className="Shop">
+          <div className="Shop-Container">
+            {loaded && <> {shops.map((shop, i) => renderShop(shop))}  </>}
+          </div>
+        </div>}
+    </>);
 }
 
 export default Shop;

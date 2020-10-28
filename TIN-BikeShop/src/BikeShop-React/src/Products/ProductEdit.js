@@ -8,17 +8,12 @@ function ProductEdit() {
     let { shopId } = useParams();
     let { productId } = useParams();
 
-    const name = useFormInput('');
-    const description = useFormInput('');
-    const pricePLN = useFormInput('');
-    const priceUSD = useFormInput('');
-    const priceEUR = useFormInput('');
-
     const [language, setLanguage] = useState(Language.getLanguage());
     const [roles, setRoles] = useState(Roles.getRoles());
     const [loaded, setLoading] = useState(false);
     const [product, setProduct] = useState(false);
     let loadingText = language === 'PL' ? 'Wczytywanie...' : 'Loading...';
+
     useEffect(() => {
         axios.defaults.headers.common['language'] = language
         axios.get(`http://localhost:5000/api/Shop/${shopId}/Product/${productId}`).then(response => {
@@ -30,12 +25,16 @@ function ProductEdit() {
             setLoading(false);
         });
     }, []);
-
-
+    
+    const name = useFormInput(product.name);
+    const description = useFormInput('');
+    const pricePLN = useFormInput('');
+    const priceUSD = useFormInput('');
+    const priceEUR = useFormInput('');
 
     function renderProductDetails(product) {
-        return (
-            <div className="Product-Element-Details" key={`product-${product.productId}`}>
+        return (<>
+            { loaded === true ? <div className="Product-Element-Details" key={`product-${product.productId}`}>
                 <div className="Product-Element-Details__Inline">
                     <div className="Product-Element__Image-Container">
                         <img src={require('../../public/' + product.photoPath)} alt="Product Image" />
@@ -47,14 +46,14 @@ function ProductEdit() {
                             </label>
                         </div>
 
-                        <input type="text" name="Name" placeholder={product.name} {...name} required />
+                        <input type="text" name="Name" {...name} required />
                         <div className="Product-Element-Details__Details-Description">
                             <div className="Product-Element-Details__Name">
                                 <label htmlFor="Description">
                                     {language === 'PL' ? 'Opis:' : 'Details:'}
                                 </label>
                             </div>
-                            <textarea type="text" name="Description" placeholder={product.description} {...description} required />
+                            <textarea type="text" name="Description"  {...description} required />
                         </div>
                     </div>
                 </div>
@@ -64,22 +63,27 @@ function ProductEdit() {
                             {language === 'PL' ? 'Cena PLN:' : 'Price PLN:'}
                         </label>
                     </div>
-                    <textarea type="number" name="Description" min="1" step="any" value={product.pricePLN} {...pricePLN} required />
+                    <input type="number" name="Description" min="0" step="any" {...pricePLN} required />
 
                     <div className="Product-Element-Details__Name">
                         <label htmlFor="Description">
                             {language === 'PL' ? 'Cena USD:' : 'Price USD:'}
                         </label>
                     </div>
+                    <input type="number" name="Description" min="0" step="any" {...priceUSD} required />
+
                     <div className="Product-Element-Details__Name">
                         <label htmlFor="Description">
                             {language === 'PL' ? 'Cena EUR:' : 'Price EUR:'}
                         </label>
                     </div>
+                    <input type="number" name="Description" min="0" step="any"{...priceEUR} required />
+
                 </div>
                 <div className="Product-Element-Details__Details-Price">
                 </div>
-            </div>);
+            </div > : <></>}
+        </>);
     }
 
     return (

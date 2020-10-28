@@ -41,7 +41,7 @@ namespace BikeShop_Api.Controllers
         }
 
         [HttpGet("{shopId}/Product/{productId}")]
-        public async Task<IActionResult> GetAllProducts(byte shopId, int productId, [FromHeader] string language, [FromHeader] Currency currency)
+        public async Task<IActionResult> GetProducts(byte shopId, int productId, [FromHeader] string language, [FromHeader] Currency currency)
         {
             return Ok(await _serivce.GetShopProduct(shopId, productId, language, currency));
         }

@@ -14,6 +14,12 @@ function ProductEdit() {
     const [product, setProduct] = useState(false);
     let loadingText = language === 'PL' ? 'Wczytywanie...' : 'Loading...';
 
+    const name = useFormInput('');
+    const description = useFormInput('');
+    const pricePLN = useFormInput('');
+    const priceUSD = useFormInput('');
+    const priceEUR = useFormInput('');
+
     useEffect(() => {
         axios.defaults.headers.common['language'] = language
         axios.get(`http://localhost:5000/api/Shop/${shopId}/Product/${productId}`).then(response => {
@@ -26,11 +32,7 @@ function ProductEdit() {
         });
     }, []);
     
-    const name = useFormInput(product.name);
-    const description = useFormInput('');
-    const pricePLN = useFormInput('');
-    const priceUSD = useFormInput('');
-    const priceEUR = useFormInput('');
+  
 
     function renderProductDetails(product) {
         return (<>

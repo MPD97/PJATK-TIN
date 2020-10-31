@@ -21,10 +21,10 @@ namespace BikeShop_Infrastructure.Services.Shop.Models
 
         [Required]
         [Range(typeof(decimal), "0.01", "9999")]
-        public string PriceEUR { get; set; }
+        public decimal PriceEUR { get; set; }
 
         [Required]
         [Range(typeof(decimal), "0.01", "9999")]
-        public string PriceUSD { get; set; }
+        public decimal PriceUSD { get; set; }
     }
 }

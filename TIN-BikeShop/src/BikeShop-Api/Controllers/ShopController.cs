@@ -49,6 +49,7 @@ namespace BikeShop_Api.Controllers
             return Ok(await _serivce.GetShopProduct(shopId, productId, language, currency));
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpPut("{shopId}/Product/{productId}")]
         public async Task<IActionResult> UpdateProduct(byte shopId, int productId, [FromHeader] string language, [FromForm] ProductPutModel model)
         {

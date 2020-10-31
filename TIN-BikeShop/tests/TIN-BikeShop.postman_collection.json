@@ -11,8 +11,19 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n   \"UserName\": \"test@wp.pl\",\r\n   \"Password\":\"1qaz@WSX\"\r\n}",
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "UserName",
+							"value": "testmoderator@wp.pl",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "1qaz@WSX",
+							"type": "text"
+						}
+					],
 					"options": {
 						"raw": {
 							"language": "json"
@@ -33,7 +44,142 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "/api/Account/LogIn",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "UserName",
+									"value": "testadmin@wp.pl",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "1qaz@WSX",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/Account/LogIn",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Account",
+								"LogIn"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 28 Oct 2020 09:16:46 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Location",
+							"value": ""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMiLCJuYW1laWQiOiJ0ZXN0bW9kZXJhdG9yQHdwLnBsIiwicm9sZSI6Ik1vZGVyYXRvciIsIm5iZiI6MTYwMzg3NjYwNiwiZXhwIjoxNjAzODc3MjA2LCJpYXQiOjE2MDM4NzY2MDZ9._BE95SOVqHq-VzPQ78EAkC6yuIIEQXe1HDOjd9z9A34\",\n    \"roles\": [\n        \"Moderator\"\n    ]\n}"
+				},
+				{
+					"name": "/api/Account/LogIn",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "UserName",
+									"value": "test@wp.pl",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "1qaz@WSX",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/Account/LogIn",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Account",
+								"LogIn"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 28 Oct 2020 09:16:46 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Location",
+							"value": ""
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMiLCJuYW1laWQiOiJ0ZXN0bW9kZXJhdG9yQHdwLnBsIiwicm9sZSI6Ik1vZGVyYXRvciIsIm5iZiI6MTYwMzg3NjYwNiwiZXhwIjoxNjAzODc3MjA2LCJpYXQiOjE2MDM4NzY2MDZ9._BE95SOVqHq-VzPQ78EAkC6yuIIEQXe1HDOjd9z9A34\",\n    \"roles\": [\n        \"Moderator\"\n    ]\n}"
+				}
+			]
 		},
 		{
 			"name": "/api/Shop",
@@ -49,7 +195,20 @@
 					]
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"url": {
 					"raw": "http://localhost:5000/api/Shop",
 					"protocol": "http",
@@ -65,6 +224,314 @@
 				"description": "Role = Moderator"
 			},
 			"response": []
+		},
+		{
+			"name": "/api/Shop/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMiLCJuYW1laWQiOiJ0ZXN0bW9kZXJhdG9yQHdwLnBsIiwicm9sZSI6Ik1vZGVyYXRvciIsIm5iZiI6MTYwMzM5NzA0NCwiZXhwIjoxNjAzMzk3NjQ0LCJpYXQiOjE2MDMzOTcwNDR9.2eNPKqX_zafE9GqWHISvO46iqFvyZt_IfBfK3dux-fs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/Shop/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Shop",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/Shop/1/Product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMiLCJuYW1laWQiOiJ0ZXN0bW9kZXJhdG9yQHdwLnBsIiwicm9sZSI6Ik1vZGVyYXRvciIsIm5iZiI6MTYwMzM5NzA0NCwiZXhwIjoxNjAzMzk3NjQ0LCJpYXQiOjE2MDMzOTcwNDR9.2eNPKqX_zafE9GqWHISvO46iqFvyZt_IfBfK3dux-fs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "language",
+						"value": "EN",
+						"type": "text"
+					},
+					{
+						"key": "currency",
+						"value": "EUR",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/Shop/1/Product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Shop",
+						"1",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/Account/VerifyToken",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMiLCJuYW1laWQiOiJ0ZXN0bW9kZXJhdG9yQHdwLnBsIiwicm9sZSI6Ik1vZGVyYXRvciIsIm5iZiI6MTYwMzg3NjYwNiwiZXhwIjoxNjAzODc3MjA2LCJpYXQiOjE2MDM4NzY2MDZ9._BE95SOVqHq-VzPQ78EAkC6yuIIEQXe1HDOjd9z9A34",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Account/VerifyToken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Account",
+						"VerifyToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/Shop/1/Product/2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMiLCJuYW1laWQiOiJ0ZXN0bW9kZXJhdG9yQHdwLnBsIiwicm9sZSI6Ik1vZGVyYXRvciIsIm5iZiI6MTYwMzM5NzA0NCwiZXhwIjoxNjAzMzk3NjQ0LCJpYXQiOjE2MDMzOTcwNDR9.2eNPKqX_zafE9GqWHISvO46iqFvyZt_IfBfK3dux-fs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "language",
+						"value": "EN",
+						"type": "text"
+					},
+					{
+						"key": "currency",
+						"value": "EUR",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/Shop/1/Product/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Shop",
+						"1",
+						"Product",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/Shop/1/Product/2/Edit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMiLCJuYW1laWQiOiJ0ZXN0bW9kZXJhdG9yQHdwLnBsIiwicm9sZSI6Ik1vZGVyYXRvciIsIm5iZiI6MTYwMzM5NzA0NCwiZXhwIjoxNjAzMzk3NjQ0LCJpYXQiOjE2MDMzOTcwNDR9.2eNPKqX_zafE9GqWHISvO46iqFvyZt_IfBfK3dux-fs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "language",
+						"type": "text",
+						"value": "EN"
+					},
+					{
+						"key": "currency",
+						"type": "text",
+						"value": "EUR"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Name",
+							"value": "New Product Name",
+							"type": "text"
+						},
+						{
+							"key": "Description",
+							"value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Shop/1/Product/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Shop",
+						"1",
+						"Product",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/api/Shop/1/Product/2/Edit - Server-Side Validation",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "language",
+								"type": "text",
+								"value": "EN"
+							},
+							{
+								"key": "currency",
+								"type": "text",
+								"value": "EUR"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "New Product Name",
+									"type": "text"
+								},
+								{
+									"key": "Description",
+									"value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+									"type": "text"
+								},
+								{
+									"key": "PricePLN",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "PriceEUR",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "PriceUSD",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/Shop/1/Product/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Shop",
+								"1",
+								"Product",
+								"2"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 31 Oct 2020 15:29:03 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/problem+json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"|ce8d04e7-426925eff1966ec3.\",\n    \"errors\": {\n        \"PriceEUR\": [\n            \"The value '' is invalid.\"\n        ],\n        \"PricePLN\": [\n            \"The value '' is invalid.\"\n        ],\n        \"PriceUSD\": [\n            \"The value '' is invalid.\"\n        ]\n    }\n}"
+				}
+			]
 		}
 	],
 	"protocolProfileBehavior": {}

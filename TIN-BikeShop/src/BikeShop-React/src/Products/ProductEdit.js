@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, NavLink, HashRouter, useParams } from "react-router-dom";
+import { getToken } from '../Utils/Auth';
+import { BrowserRouter as Router, NavLink, HashRouter, useParams, useHistory } from "react-router-dom";
 import Language, { Currency, Roles } from "../Utils/Cookie"
 import "./ProductEdit.css"
 
 function ProductEdit() {
     let { shopId } = useParams();
     let { productId } = useParams();
+    const history = useHistory();
 
     const [language, setLanguage] = useState(Language.getLanguage());
     const [roles, setRoles] = useState(Roles.getRoles());
-    const [loaded, setLoading] = useState(false);
+    const [loaded, setLoaded] = useState(false);
+    const [editLoaded, setEditLoaded] = useState(true);
     const [product, setProduct] = useState(false);
     let loadingText = language === 'PL' ? 'Wczytywanie...' : 'Loading...';
 
@@ -40,15 +43,17 @@ function ProductEdit() {
     const priceEUR = useFormInput('');
 
     useEffect(() => {
+        const token = getToken();
         axios.defaults.headers.common['language'] = language
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}` 
         axios.get(`http://localhost:5000/api/Shop/${shopId}/Product/${productId}`).then(response => {
             console.debug(response.data);
             setProduct(response.data);
-            setLoading(true);
+            setLoaded(true);
         }).catch(error => {
-            alert("Acces denied.")
             console.error(error);
-            setLoading(false);
+            setLoaded(false);
+            history.push("/logIn");
         });
     }, []);
 
@@ -116,7 +121,6 @@ function ProductEdit() {
                     if (value <= 0.01) {
                         setPriceUSDValidation(language === 'PL' ? 'minimalna wartość to 0.01' : 'Minimum value is 0.01')
                         return false;
-
                     } else if (value >= 9999) {
                         setPriceUSDValidation(language === 'PL' ? 'maksymalna watość to 9999' : 'Maximum value is 9999')
                         return false;
@@ -132,12 +136,19 @@ function ProductEdit() {
         for (var pair of FD.entries()) {
             let validationResult = validate(pair[0], pair[1]);
             console.log(pair[0] + ': ' + pair[1] + ', Result: ' + validationResult);
-            if(validationResult){
+            if (!validationResult) {
                 success = false;
             }
         }
-        if(success){
-            //send requ
+        if (success) {
+            axios.defaults.headers.common['language'] = language
+            axios.put(`http://localhost:5000/api/Shop/${shopId}/Product/${productId}`, FD).then(response => {
+                history.push(`/Shop/${shopId}/Product/${productId}`);
+            }).catch(error => {
+                console.error(error);
+                setEditLoaded(false);
+                history.push("/logIn");
+            });
         }
 
     }
@@ -176,7 +187,7 @@ function ProductEdit() {
                             {language === 'PL' ? 'Cena PLN:' : 'Price PLN:'}
                         </label>
                     </div>
-                    <input type="number" name="PricePLN" min="0" step="any" {...pricePLN} placeholder={product.pricePLN} required /><br/>
+                    <input type="number" name="PricePLN" min="0" step="any" {...pricePLN} placeholder={product.pricePLN} required /><br />
                     <span className="red">{pricePLNValidation !== null ? pricePLNValidation : ''}</span>
 
                     <div className="Product-Element-Details__Name">
@@ -184,7 +195,7 @@ function ProductEdit() {
                             {language === 'PL' ? 'Cena USD:' : 'Price USD:'}
                         </label>
                     </div>
-                    <input type="number" name="PriceUSD" min="0" step="any" {...priceUSD} placeholder={product.priceUSD} required /><br/>
+                    <input type="number" name="PriceUSD" min="0" step="any" {...priceUSD} placeholder={product.priceUSD} required /><br />
                     <span className="red">{priceUSDValidation !== null ? priceUSDValidation : ''}</span>
 
                     <div className="Product-Element-Details__Name">
@@ -192,10 +203,10 @@ function ProductEdit() {
                             {language === 'PL' ? 'Cena EUR:' : 'Price EUR:'}
                         </label>
                     </div>
-                    <input type="number" name="PriceEUR" min="0" step="any"{...priceEUR} placeholder={product.priceEUR} required /><br/>
+                    <input type="number" name="PriceEUR" min="0" step="any"{...priceEUR} placeholder={product.priceEUR} required /><br />
                     <span className="red">{priceEURValidation !== null ? priceEURValidation : ''}</span>
                     <br />
-                    <input type="button" className="Product-Edit button" value={language === 'PL' ? 'Zatwierdź' : 'Accept changes'} onClick={editProduct} />
+                    <input type="button" className="Product-Edit button" value={language === 'PL' ? 'Zatwierdź' : 'Accept changes'} onClick={editProduct} disabled={!editLoaded} />
                 </div>
                 <div className="Product-Element-Details__Details-Price">
                 </div>

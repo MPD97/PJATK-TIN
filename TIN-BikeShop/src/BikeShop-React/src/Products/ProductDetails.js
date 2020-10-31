@@ -5,8 +5,8 @@ import Language, { Currency, Roles } from "../Utils/Cookie"
 import "./ProductDetails.css"
 
 function ProductDetails() {
-    let { shopId } = useParams();
-    let { productId } = useParams();
+    const { shopId } = useParams();
+    const { productId } = useParams();
 
     const ModeratorRole = "Moderator";
     const AdminRole = "Admin";
@@ -35,7 +35,7 @@ function ProductDetails() {
         return (
             <div className="Product-Element-Details__Moderator-Wrapper">
                 <HashRouter>
-                    <NavLink to={`/Shop/${shopId}/Product/${product.productId}/Edit`} className="button">
+                    <NavLink to={`/Shop/${shopId}/Product/${productId}/Edit`} className="button">
                         {language == 'PL' ? 'Edytuj' : 'Edit'}
                     </NavLink>
                 </HashRouter>

@@ -16,6 +16,8 @@ namespace BikeShop_Infrastructure.Services.Shop
         public Task<ICollection<ShopResponseModel>> GetAll();
         public Task<ICollection<ProductResponseModel>> GetShopProducts(byte shopId, string language, Currency currency);
         public Task<ProductResponseModel> GetShopProduct(byte shopId, int productId, string language, Currency currency);
+        public Task<bool> PutShopProduct(byte shopId, int productId, string language, ProductPutModel model);
+
     }
     public class ShopService : IShopService
     {
@@ -196,6 +198,11 @@ namespace BikeShop_Infrastructure.Services.Shop
                         throw new NotImplementedException("Podano niezną walutę");
                     }
             }
+        }
+
+        public Task<bool> PutShopProduct(byte shopId, int productId, string language, ProductPutModel model)
+        {
+            throw new NotImplementedException();
         }
     }
     public enum Currency

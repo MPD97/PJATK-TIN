@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams } from "react-router-dom";
+import { BrowserRouter as Router, NavLink, HashRouter, useParams } from "react-router-dom";
 import Language, { Currency } from "../Utils/Cookie"
-import ProductDetails from "./ProductDetails"
 import "./Product.css"
 
 function Product() {
@@ -41,7 +40,7 @@ function Product() {
                     <small><i>{product.description}</i></small>
                 </div>
                 <div className="Product-Element__Details-Price">
-                    {language == 'PL' ? <> Cena: <div className="red" >{product.price}</div>  {currency}</> : <> Price: <div className="red" >{product.price}</div>  {currency}</>}
+                    {language === 'PL' ? <> Cena: <div className="red" >{product.price}</div>  {currency}</> : <> Price: <div className="red" >{product.price}</div>  {currency}</>}
                    
                 </div>
                 <div className="Product-Element__Enter">

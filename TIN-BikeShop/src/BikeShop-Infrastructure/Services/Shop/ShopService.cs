@@ -16,6 +16,8 @@ namespace BikeShop_Infrastructure.Services.Shop
         public Task<ICollection<ShopResponseModel>> GetAll();
         public Task<ICollection<ProductResponseModel>> GetShopProducts(byte shopId, string language, Currency currency);
         public Task<ProductResponseModel> GetShopProduct(byte shopId, int productId, string language, Currency currency);
+        public Task<bool> PutShopProduct(byte shopId, int productId, string language, ProductPutModel model);
+
     }
     public class ShopService : IShopService
     {
@@ -87,7 +89,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).ToArrayAsync();
                     }
                 case Currency.USD:
@@ -99,7 +104,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).ToArrayAsync();
                     }
                 case Currency.EUR:
@@ -111,7 +119,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).ToArrayAsync();
                     }
                 default:
@@ -146,7 +157,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).FirstOrDefaultAsync();
                     }
                 case Currency.USD:
@@ -158,7 +172,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).FirstOrDefaultAsync();
                     }
                 case Currency.EUR:
@@ -170,7 +187,10 @@ namespace BikeShop_Infrastructure.Services.Shop
                             Name = storage.Product.ProductNames.First(name => name.LanguageId == lang.LanguageId).Text,
                             Description = storage.Product.ProductDescriptions.First(name => name.LanguageId == lang.LanguageId).Text,
                             Amount = storage.Amount,
-                            PhotoPath = storage.Product.PhotoPath
+                            PhotoPath = storage.Product.PhotoPath,
+                            PricePLN = storage.Product.PricePLN,
+                            PriceUSD = storage.Product.PriceUSD,
+                            PriceEUR = storage.Product.PriceEUR
                         }).FirstOrDefaultAsync();
                     }
                 default:
@@ -178,6 +198,42 @@ namespace BikeShop_Infrastructure.Services.Shop
                         throw new NotImplementedException("Podano niezną walutę");
                     }
             }
+        }
+
+        public async Task<bool> PutShopProduct(byte shopId, int productId, string language, ProductPutModel model)
+        {
+            var lang = _context.Languages
+              .AsNoTracking()
+              .First(lang => lang.LanguageShort.ToUpper() == language.ToUpper());
+
+            var product = await _context.Products
+                .Include(product => product.ProductDescriptions)
+                .Include(product => product.ProductNames)
+                    .Where(product => product.ProductId == productId)
+                    .Where(product => product.ProductDescriptions.Any(pdesc => pdesc.Language.LanguageId == lang.LanguageId))
+                    .Where(product => product.ProductNames.Any(pname => pname.Language.LanguageId == lang.LanguageId))
+                .FirstOrDefaultAsync();
+
+            if (product == null)
+                return false;
+
+
+            var name = product.ProductNames.First();
+            name.Text = model.Name;
+
+            _context.Entry(name).State = EntityState.Modified;
+
+            var description = product.ProductDescriptions.First();
+            description.Text = model.Description;
+
+            _context.Entry(description).State = EntityState.Modified;
+
+            product.PricePLN = model.PricePLN;
+            product.PriceUSD = model.PriceUSD;
+            product.PriceEUR = model.PriceEUR;
+            _context.Entry(product).State = EntityState.Modified;
+
+            return (await _context.SaveChangesAsync() > 0);
         }
     }
     public enum Currency

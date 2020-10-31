@@ -7,6 +7,11 @@
         public string Description { get; set; }
         public string PhotoPath { get; set; }
         public decimal Price { get; set; }
+
+        public decimal PricePLN { get; set; }
+        public decimal PriceUSD { get; set; }
+        public decimal PriceEUR { get; set; }
+
         public int Amount { get; set; }
     }
 }

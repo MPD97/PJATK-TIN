@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { getToken, removeUserSession, setUserSession } from '../Utils/Auth';
-import { BrowserRouter as Router, Redirect, Switch, Route, NavLink, HashRouter, Link, useRouteMatch, useParams, useHistory } from "react-router-dom";
+import { setUserSession } from '../Utils/Auth';
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
 import Language from "../Utils/Cookie"
 import './LogIn.css';
 
@@ -12,7 +12,7 @@ function LogIn() {
     const password = useFormInput('');
     const [error, setError] = useState(null);
     const [LoggedIn, setLoggedIn] = useState(false);
-    
+
     let loadingText = language === 'PL' ? 'Wczytywanie...' : 'Loading...';
     let submitText = language === 'PL' ? 'Zaloguj' : 'Login';
 
@@ -32,7 +32,7 @@ function LogIn() {
         axios.post('http://localhost:5000/api/Account/LogIn', FD)
             .then(response => {
                 setLoading(false);
-                setUserSession(response.data.token);
+                setUserSession(response.data.token, response.data.roles);
                 setLoggedIn(true);
                 window.location.reload();
                 console.debug('Logged In.');
@@ -71,20 +71,20 @@ function LogIn() {
                     <div className="LogIn-Container">
                         <div className="LogIn-Header">
                             <h1>
-                                {language == 'PL' ? 'Logowanie' : 'Login'}
+                                {language === 'PL' ? 'Logowanie' : 'Login'}
                             </h1>
                             <hr />
                         </div>
                         <div className="LogIn-Form">
                             <div className="LogIn-Form__Element-Container">
                                 <label htmlFor="UserName">
-                                    {language == 'PL' ? 'Nazwa Użytkownika:' : 'User Name:'}
+                                    {language === 'PL' ? 'Nazwa Użytkownika:' : 'User Name:'}
                                 </label>
                                 <input type="text" name="UserName" {...username} required />
                             </div>
                             <div className="LogIn-Form__Element-Container">
                                 <label htmlFor="Password">
-                                    {language == 'PL' ? 'Hasło: ' : 'Password:'}
+                                    {language === 'PL' ? 'Hasło: ' : 'Password:'}
                                 </label>
                                 <input type="password" name="Password" {...password} required />
                             </div>

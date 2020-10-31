@@ -1,3 +1,4 @@
+import Language, { Currency, Roles } from "./Cookie";
 
 // return the token from the session storage
 export const getToken = () => {
@@ -11,9 +12,11 @@ export const tokenExist = () => {
 // remove the token and user from the session storage
 export const removeUserSession = () => {
     sessionStorage.removeItem('token');
+    Roles.setRoles(null);
 }
 
 // set the token and user from the session storage
-export const setUserSession = (token) => {
+export const setUserSession = (token, roles) => {
     sessionStorage.setItem('token', token);
+    Roles.setRoles(roles);
 }

@@ -14,6 +14,18 @@ function ProductEdit() {
     const [product, setProduct] = useState(false);
     let loadingText = language === 'PL' ? 'Wczytywanie...' : 'Loading...';
 
+    const useFormInput = initialValue => {
+        const [value, setValue] = useState(initialValue);
+    
+        const handleChange = e => {
+            setValue(e.target.value);
+        }
+        return {
+            value,
+            onChange: handleChange
+        }
+    }
+    
     const name = useFormInput('');
     const description = useFormInput('');
     const pricePLN = useFormInput('');
@@ -48,14 +60,14 @@ function ProductEdit() {
                             </label>
                         </div>
 
-                        <input type="text" name="Name" {...name} required />
+                        <input type="text" name="Name" {...name} placeholder={product.name} required />
                         <div className="Product-Element-Details__Details-Description">
                             <div className="Product-Element-Details__Name">
                                 <label htmlFor="Description">
                                     {language === 'PL' ? 'Opis:' : 'Details:'}
                                 </label>
                             </div>
-                            <textarea type="text" name="Description"  {...description} required />
+                            <textarea type="text" name="Description"  {...description} placeholder={product.description} required />
                         </div>
                     </div>
                 </div>
@@ -65,21 +77,21 @@ function ProductEdit() {
                             {language === 'PL' ? 'Cena PLN:' : 'Price PLN:'}
                         </label>
                     </div>
-                    <input type="number" name="Description" min="0" step="any" {...pricePLN} required />
+                    <input type="number" name="Description" min="0" step="any" {...pricePLN} placeholder={product.pricePLN} required />
 
                     <div className="Product-Element-Details__Name">
                         <label htmlFor="Description">
                             {language === 'PL' ? 'Cena USD:' : 'Price USD:'}
                         </label>
                     </div>
-                    <input type="number" name="Description" min="0" step="any" {...priceUSD} required />
+                    <input type="number" name="Description" min="0" step="any" {...priceUSD} placeholder={product.priceUSD} required />
 
                     <div className="Product-Element-Details__Name">
                         <label htmlFor="Description">
                             {language === 'PL' ? 'Cena EUR:' : 'Price EUR:'}
                         </label>
                     </div>
-                    <input type="number" name="Description" min="0" step="any"{...priceEUR} required />
+                    <input type="number" name="Description" min="0" step="any"{...priceEUR} placeholder={product.priceEUR} required />
 
                 </div>
                 <div className="Product-Element-Details__Details-Price">
@@ -96,15 +108,5 @@ function ProductEdit() {
         </div>
     );
 }
-const useFormInput = initialValue => {
-    const [value, setValue] = useState(initialValue);
 
-    const handleChange = e => {
-        setValue(e.target.value);
-    }
-    return {
-        value,
-        onChange: handleChange
-    }
-}
 export default ProductEdit;

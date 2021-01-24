@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getToken, removeUserSession, tokenExist } from '../Utils/Auth';
 import LogIn from "../LogIn/LogIn";
+import Register from "../Register/Register";
 import LogOut from "../LogOut/LogOut";
 import Shop from "../Shop/Shop";
 import Product from "../Products/Product";
@@ -116,17 +117,24 @@ function App() {
           </div>
           <div className="Header-Nav">
             {authorized == false ?
-              <NavLink to="/LogIn" className="Header-Nav__Link">
-                {language == 'PL' ? 'Logowanie' : 'Login'}
-              </NavLink > :
+              <>
+                <NavLink to="/LogIn" className="Header-Nav__Link">
+                  {language == 'PL' ? 'Logowanie' : 'Log In'}
+                </NavLink > 
+                <NavLink to="/Register" className="Header-Nav__Link">
+                  {language == 'PL' ? 'Rejestracja' : 'Register'}
+                </NavLink > 
+              </>
+              :
               <NavLink to="/LogOut" className="Header-Nav__Link">
-                {language == 'PL' ? 'Wyloguj' : 'LogOut'}
+                {language == 'PL' ? 'Wyloguj' : 'Log Out'}
               </NavLink >}
           </div>
         </header>
         <div className="App-Content">
           <Route exact path="/" component={Shop} />
           <Route exact path="/LogIn" component={LogIn} />
+          <Route exact path="/Register" component={Register} />
           <Route exact path="/LogOut" component={LogOut} />
           <Route exact path="/Shop/:shopId/Product" component={Product} />
           <Route exact path="/Shop/:shopId/Product/:productId" component={ProductDetails} />

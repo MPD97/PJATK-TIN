@@ -11,6 +11,10 @@ const Language = {
         bake_cookie(cookie_key_language, language);
     },
     getLanguage: function () {
+        let lang = read_cookie(cookie_key_language);
+        if(lang.length == 0){
+            this.setLanguage('PL');
+        }
         return read_cookie(cookie_key_language);
     }
 }
@@ -20,6 +24,10 @@ const Currency = {
         bake_cookie(cookie_key_currency, currency);
     },
     getCurrency: function () {
+        let currency = read_cookie(cookie_key_currency);
+        if(currency.length == 0){
+            this.setCurrency('PLN');
+        }
         return read_cookie(cookie_key_currency);
     }
 }

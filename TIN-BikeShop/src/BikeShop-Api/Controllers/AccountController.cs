@@ -69,6 +69,52 @@ namespace BikeShop_Api.Controllers
             return Created("", response);
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register([FromForm] RegisterModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            ApplicationUser user = await _userManager.FindByNameAsync(model.UserName);
+            if (user != null)
+            {
+                return BadRequest();
+            }
+
+            user = new ApplicationUser()
+            {
+                UserName = model.UserName,
+                Email = model.UserName
+            };
+
+            var registerResult = await _userManager.CreateAsync(user, model.Password);
+            if (!registerResult.Succeeded)
+            {
+                return BadRequest();
+            }
+
+            var roleResult = await _userManager.AddToRoleAsync(user, "User");
+            if (!roleResult.Succeeded)
+            {
+                return BadRequest();
+            }
+
+            var roles = (await _userManager.GetRolesAsync(user))?.ToArray();
+
+            var token = _authorizationManager.GenerateJwtToken(user, roles);
+
+            var response = new //TODO: Create response model
+            {
+                token = token,
+                roles = roles
+            };
+
+            return Created("", response);
+        }
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> LogOut()
@@ -79,6 +125,8 @@ namespace BikeShop_Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
+
         public async Task<IActionResult> Verifytoken()
         {
             if (_authorizationManager.VerifyToken())

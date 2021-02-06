@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BikeShop_Infrastructure.Authorization.Models
 {
-    public class LoginModel
+    public class RegisterModel
     {
         [Required]
         [MinLength(5)]
@@ -16,5 +13,8 @@ namespace BikeShop_Infrastructure.Authorization.Models
         [MinLength(5)]
         [MaxLength(20)]
         public string Password { get; set; }
+
+        [Compare("Password")]
+        public string RepeatPassword { get; set; }
     }
 }

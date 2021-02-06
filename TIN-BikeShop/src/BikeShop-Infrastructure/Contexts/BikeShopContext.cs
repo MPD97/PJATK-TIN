@@ -25,12 +25,17 @@ namespace BikeShop_Infrastructure.Contexts
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-
             SeedData(builder);
         }
         private void SeedData(ModelBuilder builder)
@@ -47,9 +52,6 @@ namespace BikeShop_Infrastructure.Contexts
                 LanguageLong = "English",
                 LanguageShort = "EN",
             };
-
-
-
 
             Product product1 = new Product
             {

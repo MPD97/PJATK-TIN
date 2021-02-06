@@ -67,6 +67,10 @@ namespace BikeShop_Infrastructure.Services
         public bool VerifyToken()
         {
             var timestampValidTo = _httpAccessor.HttpContext.User.FindFirstValue("exp");
+            if (timestampValidTo == null)
+            {
+                return false;
+            }
             if (int.Parse(timestampValidTo) > DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds)
             {
                 return true;
